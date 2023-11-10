@@ -2,8 +2,16 @@
 
 <%= render @user %>
 
+<%= form_tag transactions_csv_path do %>
+  <div>
+    <%= label_tag :csv, 'Transactions CSV' %>
+    <%= file_field :csv, accept: 'text/csv' %>
+  </div>
+  <%= submit_tag 'Upload Transactions' %>
+<% end %>
+
 <div>
-<!--  <%#= link_to "Edit this user", edit_user_path(@user) %> |-->
+  <!--  <%#= link_to "Edit this user", edit_user_path(@user) %> |-->
   <%= link_to "Back to users", users_path %>
 
   <%= button_to "Destroy this user", @user, method: :delete %>

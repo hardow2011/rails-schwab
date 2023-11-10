@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/sessions', to: 'sessions#create'
   delete '/sessions', to: 'sessions#destroy'
+  post '/transactions_csv', to: 'users#transactions_csv'
 end
