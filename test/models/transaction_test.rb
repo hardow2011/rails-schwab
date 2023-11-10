@@ -1,3 +1,26 @@
+# == Schema Information
+#
+# Table name: transactions
+#
+#  id                  :bigint           not null, primary key
+#  date                :date
+#  deposit             :float
+#  description         :string
+#  running_balance     :float
+#  user_references     :string
+#  withdrawal          :float
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  transaction_type_id :bigint           not null
+#
+# Indexes
+#
+#  index_transactions_on_transaction_type_id  (transaction_type_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (transaction_type_id => transaction_types.id)
+#
 require "test_helper"
 
 class TransactionTest < ActiveSupport::TestCase
