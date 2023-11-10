@@ -11,6 +11,13 @@
   </head>
 
   <body>
+    <b><%= current_user.email if logged_in? %></b>
     <%= yield %>
+    <br>
+    <% if logged_in? %>
+    <%= button_to "Logout", sessions_path, method: :delete %>
+    <% else %>
+    <%= button_to "Login Page", login_path, method: :get %>
+    <% end %>
   </body>
 </html>
