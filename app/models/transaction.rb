@@ -24,4 +24,6 @@
 class Transaction < ApplicationRecord
   belongs_to :transaction_type
   belongs_to :user
+
+  alias_attribute :type, :transaction_type
 end

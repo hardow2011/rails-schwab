@@ -2,7 +2,7 @@
 
 <%= render @user %>
 
-<%= form_tag transactions_csv_path do %>
+<%= form_tag transactions_csv_path, multipart: true do %>
   <div>
     <%= label_tag :csv, 'Transactions CSV' %>
     <%= file_field :csv, accept: 'text/csv' %>

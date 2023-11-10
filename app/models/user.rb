@@ -14,4 +14,7 @@ class User < ApplicationRecord
   validates :password_digest, presence: true
 
   has_many :transactions
+
+  include TransactionsBuilder
+
 end

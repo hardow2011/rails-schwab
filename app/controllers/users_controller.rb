@@ -21,8 +21,9 @@ class UsersController < ApplicationController
   end
 
   def transactions_csv
-    byebug
     uploaded_file = params[:csv]
+    current_user.set_transactions(uploaded_file)
+    redirect_to user_url(current_user)
   end
 
   # POST /users or /users.json
