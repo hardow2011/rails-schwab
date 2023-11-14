@@ -1,28 +1,20 @@
-import { Chart, registerables } from 'chart.js'
+import {Chart, registerables} from 'chart.js'
 
 Chart.register(...registerables);
 
-(async function() {
-    const data = [
-        { year: 2010, count: 10 },
-        { year: 2011, count: 20 },
-        { year: 2012, count: 15 },
-        { year: 2013, count: 25 },
-        { year: 2014, count: 22 },
-        { year: 2015, count: 30 },
-        { year: 2016, count: 28 },
-    ];
+(async function () {
+    const data = transactions;
 
     new Chart(
         document.getElementById('acquisitions'),
         {
-            type: 'bar',
+            type: 'line',
             data: {
-                labels: data.map(row => row.year),
+                labels: data.map(row => row.date),
                 datasets: [
                     {
-                        label: 'Acquisitions by year',
-                        data: data.map(row => row.count)
+                        label: 'Running Balance',
+                        data: data.map(row => row.running_balance)
                     }
                 ]
             }

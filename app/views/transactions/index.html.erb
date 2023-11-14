@@ -1,3 +1,6 @@
-<div style="width: 800px;"><canvas id="acquisitions"></canvas></div>
+<div style="width: 950px;"><canvas id="acquisitions"></canvas></div>
 
+<script>
+  const transactions = <%= @transactions %>
+</script>
 <%= javascript_import_module_tag "transactions_chart" %>

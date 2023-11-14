@@ -25,5 +25,12 @@ class Transaction < ApplicationRecord
   belongs_to :transaction_type
   belongs_to :user
 
-  alias_attribute :type_id, :transaction_type_id
+  def as_json(options={})
+    if options == :chart_data
+      {
+        date: date,
+        running_balance: running_balance
+      }
+    end
+  end
 end

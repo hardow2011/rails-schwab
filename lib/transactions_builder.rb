@@ -10,12 +10,14 @@ module TransactionsBuilder
     end
     csv[transactions_first_index..-1].each_with_index do |row, i|
       date = Date.strptime(row[0], "%m/%d/%Y")
-      type = TransactionType.find_or_create_by(name: row[1])
+      transaction_type = TransactionType.find_or_create_by(name: row[1])
       description = row[3]
+      puts "*** #{date} #{description}"
+      byebug
       withdrawal = convert_to_float(row[4])
       deposit = convert_to_float(row[5])
       running_balance = convert_to_float(row[6])
-      Transaction.create(date: date, type: type, description: description,
+      Transaction.create(date: date, transaction_type: transaction_type, description: description,
                       withdrawal: withdrawal, deposit: deposit,
                       running_balance: running_balance,
                       user: self)
@@ -26,6 +28,7 @@ module TransactionsBuilder
   private
 
   def convert_to_float(string)
-    string.gsub(/[^(\d|\.)]/, "").to_f
+    return string.gsub(/[^(\d|\.)]/, "").to_f if string
+    ""
   end
 end
