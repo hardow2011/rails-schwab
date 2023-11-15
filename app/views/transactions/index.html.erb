@@ -1,6 +1,8 @@
 <div style="width: 950px;"><canvas id="acquisitions"></canvas></div>
+<button onclick="updateChartRange('1_mo')">1 Mo</button>
 
-<script>
-  const transactions = <%= sanitize @transactions %>
-</script>
+
 <%= javascript_import_module_tag "transactions_chart" %>
+<script>
+    const chart = <%= sanitize @transactions %>;
+</script>
