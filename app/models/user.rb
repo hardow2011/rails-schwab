@@ -37,5 +37,4 @@ class User < ApplicationRecord
     end
     chart_data
   end
-
 end

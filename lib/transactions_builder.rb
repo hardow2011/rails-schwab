@@ -2,6 +2,10 @@ require 'csv'
 
 module TransactionsBuilder
   def set_transactions(csv)
+    # TODO: replace destroy_all for more efficient process.
+    #  Maybe set flag instead, and remove with background process
+    self.transactions.destroy_all
+
     csv = csv.values[0]
     csv = CSV.read(csv)
     transactions_first_index = nil
@@ -13,7 +17,6 @@ module TransactionsBuilder
       transaction_type = TransactionType.find_or_create_by(name: row[1])
       description = row[3]
       puts "*** #{date} #{description}"
-      byebug
       withdrawal = convert_to_float(row[4])
       deposit = convert_to_float(row[5])
       running_balance = convert_to_float(row[6])
