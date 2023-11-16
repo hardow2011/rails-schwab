@@ -100,3 +100,7 @@ function updateChartRange(range) {
         }
     );
 })();
+
+window.updateChartRange = function updateChartRange(range) {
+    console.log(range)
+}
