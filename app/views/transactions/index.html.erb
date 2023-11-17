@@ -1,8 +1,13 @@
 <div style="width: 950px;"><canvas id="acquisitions"></canvas></div>
-<button onclick="updateChartRange('1_mo')">1 Mo</button>
+<button onclick="updateChartRange('mo_1')">1 Mo</button>
+<button onclick="updateChartRange('mo_3')">3 Mo</button>
+<button onclick="updateChartRange('mo_6')">6 Mo</button>
+<button onclick="updateChartRange('ytd')">YTD</button>
+<button onclick="updateChartRange('yr_1')">1 Yr</button>
+<button onclick="updateChartRange('yr_2')">2 Yr</button>
 
 
 <%= javascript_import_module_tag "transactions_chart" %>
 <script>
-    const chart = <%= sanitize @transactions %>;
+    const chart_data = <%= sanitize @transactions %>;
 </script>
