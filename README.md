@@ -22,3 +22,5 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+Start rails, css bundler and js bundler with ./bin/dev
