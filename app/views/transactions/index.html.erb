@@ -7,7 +7,7 @@
 <button onclick="updateChartRange('yr_2')">2 Yr</button>
 
 
-<%= javascript_import_module_tag "transactions_chart" %>
+<%= javascript_include_tag "transactions_chart", type: "module" %>
 <script>
     const chart_data = <%= sanitize @transactions %>;
 </script>
