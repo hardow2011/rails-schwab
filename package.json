@@ -7,6 +7,7 @@
     "autoprefixer": "^10.4.16",
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.1",
+    "chart.js": "^4.4.0",
     "esbuild": "^0.19.6",
     "nodemon": "^3.0.1",
     "postcss": "^8.4.31",
