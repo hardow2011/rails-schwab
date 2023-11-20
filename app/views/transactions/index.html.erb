@@ -1,12 +1,38 @@
-<div style="width: 950px;"><canvas id="acquisitions"></canvas></div>
-<button onclick="updateChartRange('mo_1')">1 Mo</button>
-<button onclick="updateChartRange('mo_3')">3 Mo</button>
-<button onclick="updateChartRange('mo_6')">6 Mo</button>
-<button onclick="updateChartRange('ytd')">YTD</button>
-<button onclick="updateChartRange('yr_1')">1 Yr</button>
-<button onclick="updateChartRange('yr_2')">2 Yr</button>
+<div style="width: 950px;">
+  <canvas id="acquisitions"></canvas>
+</div>
 
+<div class="row row-cols-auto g-1">
+  <div>
+    <input type="radio" class="btn-check" id="range-mo-1" name="range-selector" onclick="updateChartRange('mo_1')" autocomplete="off">
+    <label class="btn btn-outline-secondary" for="range-mo-1">1 Mo</label><br>
+  </div>
 
+  <div>
+    <input type="radio" class="btn-check" id="range-mo-3" name="range-selector" onclick="updateChartRange('mo_3')" autocomplete="off">
+    <label class="btn btn-outline-secondary" for="range-mo-3">3 Mo</label><br>
+  </div>
+
+  <div>
+    <input type="radio" class="btn-check" id="range-mo-6" name="range-selector" onclick="updateChartRange('mo_6')" autocomplete="off">
+    <label class="btn btn-outline-secondary" for="range-mo-6">6 Mo</label><br>
+  </div>
+
+  <div>
+    <input type="radio" class="btn-check" id="range-ytd" name="range-selector" onclick="updateChartRange('ytd')" autocomplete="off">
+    <label class="btn btn-outline-secondary" for="range-ytd">YTD</label><br>
+  </div>
+
+  <div>
+    <input type="radio" class="btn-check" id="range-yr_1" name="range-selector" onclick="updateChartRange('yr_1')" autocomplete="off">
+    <label class="btn btn-outline-secondary" for="range-yr_1">1 Yr</label><br>
+  </div>
+
+  <div>
+    <input type="radio" class="btn-check" id="range-yr_2" name="range-selector" onclick="updateChartRange('yr_2')" autocomplete="off">
+    <label class="btn btn-outline-secondary" for="range-yr_2">2 Yr</label><br>
+  </div>
+</div>
 <%= javascript_include_tag "transactions_chart", type: "module" %>
 <script>
     const chart_data = <%= sanitize @transactions %>;
