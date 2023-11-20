@@ -11,12 +11,12 @@
     <%= yield :head %>
   </head>
 
-  <body>
-    <b><%= current_user.email if logged_in? %></b>
-    <%= yield %>
-    <br>
-    <% if logged_in? %>
-    <%= button_to "Logout", sessions_path, method: :delete %>
-    <% end %>
+  <body class="vh-100">
+    <div class="container-fluid h-100">
+      <%= yield %>
+      <% if logged_in? %>
+        <%= button_to "Logout", sessions_path, method: :delete %>
+      <% end %>
+    </div>
   </body>
 </html>

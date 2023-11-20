@@ -1,11 +1,24 @@
-<%= form_tag sessions_path do %>
-  <div>
-    <%= label_tag :email %>
-    <%= email_field_tag :email, nil, placeholder: 'Email' %>
+<div class="row row-cols-sm-auto align-items-center justify-content-center h-100">
+  <div class="col">
+    <div class="card w-m">
+      <h3 class="card-header">
+        Schwab
+      </h3>
+      <div class="card-body">
+        <%= form_tag sessions_path do %>
+          <div class="form-floating mb-3">
+            <%= email_field_tag :email, nil, placeholder: 'Email', class: 'form-control' %>
+            <label for="floatingInput">Email</label>
+            <%= label_tag :email, nil, class: 'form-label' %>
+          </div>
+          <div class="form-floating mb-3">
+            <%= password_field_tag :password, nil, placeholder: 'Password', class: 'form-control' %>
+            <%= label_tag :password, nil, class: 'form-label' %>
+          </div>
+          <div class="mb-3"><%= submit_tag "Log In", class: 'btn btn-primary ms-auto d-flex' %></div>
+          <div><small><%= link_to 'Not registered yet? Signup here', signup_url, class: 'link-primary' %></small></div>
+        <% end %>
+      </div>
+    </div>
   </div>
-  <div>
-    <%= label_tag :password %>
-    <%= password_field_tag :password, nil, placeholder: 'Password' %>
-  </div>
-  <%= submit_tag "Log In" %>
-<% end %>
+</div>
