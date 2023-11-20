@@ -1,5 +1,5 @@
-<div class="row row-cols-sm-auto align-items-center justify-content-center h-100">
-  <div class="col">
+<div class="row align-items-center justify-content-center h-100">
+  <div class="col-sm-7 col-lg-5 col-xl-4 col-xxl-3">
     <div class="card w-m">
       <h3 class="card-header">
         Schwab
@@ -7,11 +7,16 @@
       <div class="card-body">
         <%= form_tag sessions_path do %>
           <div class="form-floating mb-3">
-            <%= email_field_tag :email, nil, placeholder: 'Email', class: 'form-control' %>
+            <%= email_field_tag :email, nil, { autocomplete: 'off', placeholder: 'Email', class: !@failed_login ? 'form-control' : 'form-control is-invalid' } %>
             <%= label_tag :email, nil, class: 'form-label' %>
+            <div class="invalid-feedback">
+              <ul>
+                <li>Email/Password incorrect</li>
+              </ul>
+            </div>
           </div>
           <div class="form-floating mb-3">
-            <%= password_field_tag :password, nil, placeholder: 'Password', class: 'form-control' %>
+            <%= password_field_tag :password, nil, { placeholder: 'Password', class: !@failed_login ? 'form-control' : 'form-control is-invalid' } %>
             <%= label_tag :password, nil, class: 'form-label' %>
           </div>
           <div class="mb-3"><%= submit_tag "Log In", class: 'btn btn-primary ms-auto d-flex' %></div>
