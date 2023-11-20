@@ -56,33 +56,36 @@ let chart = new Chart(
     {
         type: 'line',
         options: {
-            fill: true,
-            elements: {
-                point: {
-                    pointStyle: false
-                }
-            },
             interaction: {
                 intersect: false,
                 mode: 'index'
             },
-            plugins: {
-                tooltip: {
-                    // enabled: false
-                }
-            }
+            hover: {
+                intersect: false,
+                mode: 'index'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
         },
         data: {
             labels: transactions.map(row => row.date),
             datasets: [
                 {
                     label: 'Running Balance',
-                    data: transactions.map(row => row.running_balance)
+                    fill: true,
+                    data: transactions.map(row => row.running_balance),
+                    pointRadius: 0,
+                    pointHoverRadius: 5,
+                    borderWidth: 2
                 },
                 {
                     label: 'Tendency',
                     fill: false,
-                    borderDash: [10, 5]
+                    borderDash: [10, 5],
+                    pointRadius: 0,
+                    pointHoverRadius: 5,
                 }
             ]
         }
