@@ -44,7 +44,6 @@ module TransactionsBuilder
 
   def build_chart_data
     chart_data = []
-    p "*** CACHE NOT USED. SAVE TO CACHE ***"
     last_transactions_by_date = transactions.order(:created_at).group_by(&:date).transform_values(&:first).values.reverse
     last_transactions_by_date.each_with_index do |t, i|
       next_t = last_transactions_by_date[i + 1]
