@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ edit update destroy ]
-  before_action :authorized, only: [:show]
+  before_action :authorized, only: [:show, :transactions]
 
   # GET /users or /users.json
   def index
@@ -63,6 +63,10 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url, notice: "User was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def transactions
+    @transactions = current_user.get_transactions_chart_data
   end
 
   private
