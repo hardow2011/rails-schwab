@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   def transactions_csv
     uploaded_file = params[:csv]
     current_user.set_transactions(uploaded_file)
-    redirect_to user_url(current_user)
+    redirect_to user_url
   end
 
   # POST /users or /users.json
