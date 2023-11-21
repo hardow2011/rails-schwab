@@ -5,6 +5,7 @@
 #  id                       :bigint           not null, primary key
 #  email                    :string
 #  password_digest          :string
+#  transactions             :json
 #  transactions_chart_cache :string
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
