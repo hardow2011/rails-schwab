@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_21_223202) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_21_224622) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -39,7 +39,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_21_223202) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.json "transactions"
+    t.json "transactions", default: []
   end
 
   add_foreign_key "transactions", "transaction_types"
