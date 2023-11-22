@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   helper_method :logged_in?, :current_user
+  before_action :authorized
 
   def current_user
     user_id = session[:user_id]
