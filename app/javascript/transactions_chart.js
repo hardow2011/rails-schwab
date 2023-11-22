@@ -44,10 +44,6 @@ function get_filtered_dates(transactions) {
     return filtered_dates;
 }
 
-function updateChartRange(range) {
-    console.log('Hola k ase')
-}
-
 const transactions = chart_data;
 const filtered_dates = get_filtered_dates(transactions);
 
