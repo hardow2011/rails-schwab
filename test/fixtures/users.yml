@@ -11,9 +11,9 @@
 #
 
 one:
-  email: MyString
-  password_digest: MyString
+  email: cajeipracrafo-2606@yopmail.com
+  password_digest: <%= BCrypt::Password.create('cajeipracrafo') %>
 
 two:
-  email: MyString
-  password_digest: MyString
+  email: brohoipunnova-1759@yopmail.com
+  password_digest: <%= BCrypt::Password.create('brohoipunnova') %>
