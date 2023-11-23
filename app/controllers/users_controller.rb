@@ -68,7 +68,7 @@ class UsersController < ApplicationController
 
   def transactions
     @transactions = current_user.get_transactions_chart_data
-    @total_value = JSON.parse(@transactions).last["running_balance"]
+    @total_value = JSON.parse(@transactions).empty? ? '0' : JSON.parse(@transactions).last["running_balance"]
   end
 
   private
