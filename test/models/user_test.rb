@@ -17,6 +17,7 @@ class UserTest < ActiveSupport::TestCase
   # end
   setup do
     @test_csv_path = 'test/fixtures/files/test_csv.csv'
+    @test_csv_2_path = 'test/fixtures/files/test_csv_2.csv'
   end
 
   test "should not save user without email" do
@@ -40,6 +41,18 @@ class UserTest < ActiveSupport::TestCase
     user = users(:one)
     user.set_transactions(csv)
     assert_equal 64, user.transactions.size, 'Transaction csv should have created 64 transactions'
+  end
+
+  test "second transactions csv should overwrite first transactions csv" do
+    csv_1 = File.open(@test_csv_path)
+    csv_2 = File.open(@test_csv_2_path)
+    user = users(:one)
+
+    user.set_transactions(csv_1)
+    assert_equal 64, user.transactions.size, 'First transaction csv should have created 64 transactions'
+
+    user.set_transactions(csv_2)
+    assert_equal 24, user.transactions.size, 'Second transaction csv should have overwritten transactions to 24'
   end
 
 end
