@@ -2,7 +2,6 @@ require 'csv'
 
 module TransactionsBuilder
   def set_transactions(csv)
-    csv = csv.values[0]
     csv = CSV.read(csv)
     transactions_first_index = 1
     transactions = []

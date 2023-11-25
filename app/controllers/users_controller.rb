@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   end
 
   def transactions_csv
-    uploaded_file = params[:csv]
+    uploaded_file = params[:csv].values[0]
     current_user.set_transactions(uploaded_file)
     redirect_to user_url
   end
