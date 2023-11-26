@@ -3,9 +3,9 @@ class UsersController < ApplicationController
   skip_before_action :authorized, only: [:new, :create]
 
   # GET /users or /users.json
-  def index
-    @users = User.all
-  end
+  # def index
+  #   @users = User.all
+  # end
 
   # GET /users/1 or /users/1.json
   def show
