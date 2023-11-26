@@ -16,4 +16,8 @@ class ApplicationController < ActionController::Base
   def require_login
     redirect_to login_path unless logged_in?
   end
+
+  def redirect_to_root_of_logged_in
+    redirect_to root_path if logged_in?
+  end
 end

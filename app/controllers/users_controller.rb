@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ edit update destroy ]
+  before_action :redirect_to_root_of_logged_in, only: [:new]
   skip_before_action :require_login, only: [:new, :create]
 
   # GET /users or /users.json

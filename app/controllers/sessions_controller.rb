@@ -1,8 +1,9 @@
 class SessionsController < ApplicationController
   skip_before_action :require_login, only: [:new, :create]
+  before_action :redirect_to_root_of_logged_in, only: [:new]
 
   def new
-    redirect_to root_path if session[:user_id]
+    @redirect_path = params[:redirect_path]
     @failed_login = session[:failed_login]
     session[:failed_login] = nil
   end
