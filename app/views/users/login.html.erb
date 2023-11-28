@@ -5,7 +5,7 @@
         Schwab
       </h3>
       <div class="card-body">
-        <%= form_tag sessions_path do %>
+        <%= form_tag authenticate_path do %>
           <div class="form-floating mb-3">
             <%= email_field_tag :email, nil, { autocomplete: 'off', placeholder: 'Email', class: !@failed_login ? 'form-control' : 'form-control is-invalid' } %>
             <%= label_tag :email, nil, class: 'form-label' %>
@@ -14,10 +14,6 @@
                 <li>Email/Password incorrect</li>
               </ul>
             </div>
-          </div>
-          <div class="form-floating mb-3">
-            <%= password_field_tag :password, nil, { placeholder: 'Password', class: !@failed_login ? 'form-control' : 'form-control is-invalid' } %>
-            <%= label_tag :password, nil, class: 'form-label' %>
           </div>
           <div class="mb-3"><%= submit_tag "Log In", class: 'btn btn-primary ms-auto d-flex' %></div>
           <div><small><%= link_to 'Not registered yet? Signup here', signup_url, class: 'link-primary' %></small></div>

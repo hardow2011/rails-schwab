@@ -16,4 +16,6 @@ Rails.application.routes.draw do
   delete '/sessions', to: 'sessions#destroy'
 
   post '/transactions_csv', to: 'users#transactions_csv'
+
+  post '/authenticate', to: 'authentication#create'
 end
