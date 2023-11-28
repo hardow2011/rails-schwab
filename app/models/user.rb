@@ -17,4 +17,5 @@ class User < ApplicationRecord
   validates :password_digest, presence: true
 
   include TransactionsBuilder
+  include MagicLink
 end
