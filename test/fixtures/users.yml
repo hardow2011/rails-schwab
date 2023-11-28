@@ -6,7 +6,6 @@
 #  email                   :string
 #  login_token             :string
 #  login_token_verified_at :datetime
-#  password_digest         :string
 #  transactions            :json
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
