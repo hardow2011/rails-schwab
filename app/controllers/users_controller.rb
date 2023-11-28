@@ -19,7 +19,6 @@ class UsersController < ApplicationController
 
   def login
     @redirect_path = params[:redirect_path]
-    @failed_login = session[:failed_login]
     session[:failed_login] = nil
   end
 
