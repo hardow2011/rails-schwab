@@ -16,9 +16,23 @@ module MagicLink
   end
 
   def login_link
-    Rails.application.routes.url_helpers.sessions_create_url(
+    Rails.application.routes.url_helpers.sessions_url(
       login_token: login_token,
       host: 'localhost:3000')
+  end
+
+  def generate_auth_token
+    self.login_token = nil
+    self.login_token_verified_at = Time.now
+    self.save
+
+    payload = {
+      user_id: id,
+      login_token_verified_at: login_token_verified_at,
+      exp: 1.day.from_now.to_i
+    }
+
+    generate_token(payload)
   end
 
   private
