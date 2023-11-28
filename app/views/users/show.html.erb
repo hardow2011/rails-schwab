@@ -1,6 +1,6 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render current_user %>
+<%= render @current_user %>
 
 <%= form_tag transactions_csv_path, multipart: true do %>
   <div>
@@ -14,5 +14,5 @@
   <!--  <%#= link_to "Edit this user", edit_user_path(@user) %> |-->
   <%= link_to "Back to users", users_path %>
 
-  <%= button_to "Destroy this user", current_user, method: :delete %>
+  <%= button_to "Destroy this user", @current_user, method: :delete %>
 </div>

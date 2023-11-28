@@ -18,4 +18,10 @@ class User < ApplicationRecord
 
   include TransactionsBuilder
   include MagicLink
+
+  def logout!
+    self.login_token = nil
+    self.login_token_verified_at = nil
+    save!
+  end
 end

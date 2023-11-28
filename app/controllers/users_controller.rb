@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ edit update destroy ]
-  before_action :redirect_to_root_of_logged_in, only: [:new, :login]
-  skip_before_action :require_login, only: [:new, :create, :login]
+  skip_before_action :authenticate_request!, only: [:new, :create, :login]
+  before_action :redirect_to_root_of_logged_in, only: [:login, :new]
 
   # GET /users or /users.json
   # def index
@@ -14,7 +14,6 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    redirect_to root_path if session[:user_id]
     @user = User.new
   end
 
@@ -74,7 +73,7 @@ class UsersController < ApplicationController
   end
 
   def transactions
-    @transactions = current_user.get_transactions_chart_data
+    @transactions = @current_user.get_transactions_chart_data
     @total_value = JSON.parse(@transactions).empty? ? '0' : JSON.parse(@transactions).last["running_balance"]
   end
 

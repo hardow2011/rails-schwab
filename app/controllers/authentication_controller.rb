@@ -1,5 +1,5 @@
 class AuthenticationController < ApplicationController
-  skip_before_action :require_login, only: [:create]
+  skip_before_action :authenticate_request!, only: [:create]
 
   def create
     user = User.find_or_create_by(email: params[:email])
