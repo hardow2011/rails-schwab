@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  add_flash_types :error
+
   helper_method :logged_in?
   before_action :authenticate_request!
 
