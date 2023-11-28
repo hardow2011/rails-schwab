@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_21_224622) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_28_152850) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_21_224622) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "transactions", default: []
+    t.string "login_token"
+    t.datetime "login_token_verified_at"
   end
 
   add_foreign_key "transactions", "transaction_types"
