@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ edit update destroy ]
-  before_action :redirect_to_root_of_logged_in, only: [:new]
-  skip_before_action :require_login, only: [:new, :create]
+  before_action :redirect_to_root_of_logged_in, only: [:new, :login]
+  skip_before_action :require_login, only: [:new, :create, :login]
 
   # GET /users or /users.json
   # def index
@@ -16,6 +16,12 @@ class UsersController < ApplicationController
   def new
     redirect_to root_path if session[:user_id]
     @user = User.new
+  end
+
+  def login
+    @redirect_path = params[:redirect_path]
+    @failed_login = session[:failed_login]
+    session[:failed_login] = nil
   end
 
   # GET /users/1/edit

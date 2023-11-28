@@ -10,8 +10,10 @@ Rails.application.routes.draw do
   resources :users, only: [:create]
   get '/user', to: 'users#show'
   get '/signup', to: 'users#new'
-  get '/login', to: 'sessions#new'
+
+  get '/login', to: 'users#login'
   post '/sessions', to: 'sessions#create'
   delete '/sessions', to: 'sessions#destroy'
+
   post '/transactions_csv', to: 'users#transactions_csv'
 end

@@ -3,9 +3,6 @@ class SessionsController < ApplicationController
   before_action :redirect_to_root_of_logged_in, only: [:new]
 
   def new
-    @redirect_path = params[:redirect_path]
-    @failed_login = session[:failed_login]
-    session[:failed_login] = nil
   end
 
   def create
