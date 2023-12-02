@@ -17,6 +17,9 @@ class User < ApplicationRecord
   include TransactionsBuilder
   include MagicLink
 
+  scope :registered, -> { where(registered: true) }
+  scope :unregistered, -> { where(registered: false) }
+
   def logout!
     self.login_token = nil
     self.login_token_verified_at = nil
