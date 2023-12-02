@@ -14,12 +14,19 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = User.new
+    @redirect_path = params[:redirect_path]
+    @submit_msg = 'Sign up'
+    @alternate_link = login_path
+    @alternate_txt = 'Already registered? Login here'
   end
 
   def login
+    # TODO: implement redirect path
+    @role = :login
     @redirect_path = params[:redirect_path]
-    session[:failed_login] = nil
+    @submit_msg = 'Log In'
+    @alternate_link = signup_path
+    @alternate_txt = 'Not registered yet? Signup here'
   end
 
   # GET /users/1/edit
