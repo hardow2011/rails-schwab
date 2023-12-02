@@ -1,5 +1,6 @@
 module MagicLink
-  def send_magic_link
+  # TODO: create magic link for sign up
+  def send_magic_link(sign_up=false)
     generate_login_token
     # if self.new_record?
     # end

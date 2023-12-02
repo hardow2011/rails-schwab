@@ -4,19 +4,24 @@ class AuthenticationController < ApplicationController
   def create
     commit = params[:commit]
 
-    # TODO: finish auth case when
     case commit
     when 'Log In'
-      user = User.find_by(email: params[:email])
+      user = User.registered.find_by(email: params[:email])
       if not user
-        flash[:error] = 'Email not registered'
+        flash[:errors] = ['Email not registered']
         redirect_to login_path
       else
         user.send_magic_link
       end
+    # TODO: what happens if user tries to register twice?
     when 'Sign up'
-      user = User.new(email: params[:email])
-
+      user = User.registered.find_by(email: params[:email])
+      if user
+        flash[:errors] = ['Email already taken']
+        redirect_to signup_path
+      else
+        user.send_magic_link(true)
+      end
     end
   end
 end
