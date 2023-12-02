@@ -11,7 +11,7 @@
             <%= label_tag :email, nil, class: 'form-label' %>
             <div class="invalid-feedback">
               <ul>
-                <% flash[:error] and flash[:error].each do |err| %>
+                <% flash[:errors] and flash[:errors].each do |err| %>
                   <li><%= err %></li>
                 <% end %>
               </ul>
