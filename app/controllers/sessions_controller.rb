@@ -19,11 +19,15 @@ class SessionsController < ApplicationController
           user.registered = true
           user.save
         end
-          session[:auth_token] = user.generate_auth_token
-          redirect_to root_path
+        session[:auth_token] = user.generate_auth_token
+        redirect_to root_path
       else
-        # TODO: add invalid token flash redirect
+        flash[:alert] = ['Email not registered']
+        redirect_to login_path
       end
+    else
+      flash[:alert] = ['Invalid token']
+      redirect_to root_path
     end
   end
 
