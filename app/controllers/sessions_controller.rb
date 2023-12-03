@@ -8,6 +8,11 @@ class SessionsController < ApplicationController
     if decoded_token && JsonWebToken.valid_payload(decoded_token.first)
       user = User.find_by(login_token: login_token)
       if user
+        # If user is unregistered, that is, signing up, then registered it
+        unless user.registered?
+          user.registered = true
+          user.save
+        end
           session[:auth_token] = user.generate_auth_token
           redirect_to root_path
       # TODO: add else

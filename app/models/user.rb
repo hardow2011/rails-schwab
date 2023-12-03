@@ -25,4 +25,8 @@ class User < ApplicationRecord
     self.login_token_verified_at = nil
     save!
   end
+
+  def registered?
+    registered
+  end
 end

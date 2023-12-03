@@ -20,7 +20,8 @@ class AuthenticationController < ApplicationController
         flash[:errors] = ['Email already taken']
         redirect_to signup_path
       else
-        user.send_magic_link(true)
+        user = User.create(email: params[:email])
+        user.send_magic_link
       end
     end
   end
