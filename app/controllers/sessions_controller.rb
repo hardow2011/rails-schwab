@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
         redirect_to root_path
       else
         flash[:alert] = ['Email not registered']
-        redirect_to login_path
+        redirect_to root_path
       end
     else
       flash[:alert] = ['Invalid token']
