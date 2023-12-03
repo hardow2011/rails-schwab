@@ -22,6 +22,7 @@ class SessionsController < ApplicationController
         session[:auth_token] = user.generate_auth_token
         redirect_to root_path
       else
+        # TODO: create a function that redirects to path with flash messages
         flash[:alert] = ['Email not registered']
         redirect_to root_path
       end
