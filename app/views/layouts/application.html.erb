@@ -14,18 +14,7 @@
   <body class="vh-100 position-relative">
 
     <%= render 'layouts/nav' %>
-    <% flash[:alert] and flash[:alert].each do |err| %>
-    <div class="position-absolute w-100 z-3 pt-4">
-      <div class="row justify-content-center">
-        <div class="col-sm-7 col-lg-5 col-xl-4 col-xxl-3">
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <p><%= err %></p>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <% end %>
+    <%= render 'layouts/flash' %>
     <!-- TODO: fix page overflow when not in login page -->
     <div class="container-fluid h-100">
       <%= yield %>
