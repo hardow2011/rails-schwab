@@ -15,6 +15,7 @@ class JsonWebToken
     !(expired(payload) || payload['iss'] != meta[:iss] || payload['aud'] != meta[:aud])
   end
 
+  # TODO: improve the meta of the JSON token (iss and aud)
   def self.meta
     {
       exp: 1.day.from_now,
