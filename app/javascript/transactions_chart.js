@@ -127,7 +127,6 @@ fetch('/transactions_json')
         chart = setChart(transactions);
         document.getElementById("chart_data").textContent= '$' + data.total_value
         drawTendencyLine(chart, transactions);
-        console.log(transactions)
     })
     .catch(function (error) {
         console.log(error);
