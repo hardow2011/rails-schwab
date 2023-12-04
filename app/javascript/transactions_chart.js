@@ -122,9 +122,10 @@ fetch('/transactions_json')
         return response.json();
     })
     .then(function (data) {
-        transactions = data
+        transactions = JSON.parse(data.chart_data)
         filtered_dates = get_filtered_dates(transactions);
-        chart = setChart(transactions)
+        chart = setChart(transactions);
+        document.getElementById("chart_data").textContent= '$' + data.total_value
         drawTendencyLine(chart, transactions);
         console.log(transactions)
     })

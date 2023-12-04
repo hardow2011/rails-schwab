@@ -40,8 +40,10 @@ class UsersController < ApplicationController
   end
 
   def transactions_json
+    chart_data = @current_user.get_transactions_chart_data
+    total_value = JSON.parse(chart_data).empty? ? '0' : JSON.parse(chart_data).last["running_balance"]
     respond_to do |format|
-      format.json { render json: @current_user.get_transactions_chart_data, status: :ok }
+      format.json { render json: { chart_data: chart_data, total_value: total_value }, status: :ok }
     end
   end
 
@@ -88,13 +90,14 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation)
+  end
 end
