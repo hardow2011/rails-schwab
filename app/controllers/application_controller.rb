@@ -11,9 +11,10 @@ class ApplicationController < ActionController::Base
   private
 
   def authenticate_request!
+    original_request = request.fullpath
     auth_token = session[:auth_token]
     if !auth_token
-      return invalid_authentication
+      return invalid_authentication(redirect_path: original_request)
     end
 
     load_current_user!(auth_token)
@@ -21,8 +22,8 @@ class ApplicationController < ActionController::Base
   end
 
   # TODO: create invalid authentication page
-  def invalid_authentication
-    redirect_to login_path
+  def invalid_authentication(redirect_path: nil)
+    redirect_to login_path(redirect_path: redirect_path)
   end
 
   def payload(auth_token)

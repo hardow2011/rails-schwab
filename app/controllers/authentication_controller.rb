@@ -3,6 +3,7 @@ class AuthenticationController < ApplicationController
 
   def create
     commit = params[:commit]
+    redirect_path = params[:redirect_path]
 
     case commit
     when 'Log In'
@@ -11,7 +12,7 @@ class AuthenticationController < ApplicationController
         flash[:errors] = ['Email not registered']
         redirect_to login_path
       else
-        user.send_magic_link
+        user.send_magic_link(redirect_path)
       end
     # TODO: what happens if user tries to register twice?
     when 'Sign up'
@@ -21,7 +22,7 @@ class AuthenticationController < ApplicationController
         redirect_to signup_path
       else
         user = User.create(email: params[:email])
-        user.send_magic_link
+        user.send_magic_link(redirect_path)
       end
     end
   end

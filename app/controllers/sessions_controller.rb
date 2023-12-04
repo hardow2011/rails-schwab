@@ -3,6 +3,8 @@ class SessionsController < ApplicationController
 
   def create
     login_token = params[:login_token]
+    redirect_path = params[:redirect_path] || root_path
+
     begin
       decoded_token = JsonWebToken.decode(login_token)
     rescue JWT::ExpiredSignature
@@ -20,7 +22,7 @@ class SessionsController < ApplicationController
           user.save
         end
         session[:auth_token] = user.generate_auth_token
-        redirect_to root_path
+        redirect_to redirect_path
       else
         # TODO: create a function that redirects to path with flash messages
         flash[:alert] = ['Email not registered']

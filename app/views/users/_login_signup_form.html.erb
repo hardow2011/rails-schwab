@@ -6,6 +6,7 @@
       </h3>
       <div class="card-body">
         <%= form_tag authenticate_path do %>
+          <%= hidden_field_tag :redirect_path, @redirect_path %>
           <div class="form-floating mb-3">
             <%= email_field_tag :email, nil, { autocomplete: 'off', placeholder: 'Email', class: flash[:errors].nil? ? 'form-control' : 'form-control is-invalid' } %>
             <%= label_tag :email, nil, class: 'form-label' %>

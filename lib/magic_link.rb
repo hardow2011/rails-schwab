@@ -1,8 +1,8 @@
 module MagicLink
   # TODO: create magic link for sign up
-  def send_magic_link
+  def send_magic_link(redirect_path)
     generate_login_token
-    UserMailer.magic_link(self, login_link).deliver_now
+    UserMailer.magic_link(self, login_link(redirect_path)).deliver_now
   end
 
   def generate_login_token
@@ -14,10 +14,10 @@ module MagicLink
     save!
   end
 
-  def login_link
+  def login_link(redirect_path)
     Rails.application.routes.url_helpers.sessions_url(
       login_token: login_token,
-      host: 'localhost:3000')
+      redirect_path: redirect_path)
   end
 
   def generate_auth_token
