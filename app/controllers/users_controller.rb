@@ -39,6 +39,12 @@ class UsersController < ApplicationController
     redirect_to user_url
   end
 
+  def transactions_json
+    respond_to do |format|
+      format.json { render json: @current_user.get_transactions_chart_data, status: :ok }
+    end
+  end
+
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
@@ -79,8 +85,6 @@ class UsersController < ApplicationController
   end
 
   def transactions
-    @transactions = @current_user.get_transactions_chart_data
-    @total_value = JSON.parse(@transactions).empty? ? '0' : JSON.parse(@transactions).last["running_balance"]
   end
 
   private
