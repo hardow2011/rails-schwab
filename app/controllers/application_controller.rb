@@ -21,7 +21,6 @@ class ApplicationController < ActionController::Base
     invalid_authentication unless @current_user
   end
 
-  # TODO: create invalid authentication page
   def invalid_authentication(redirect_path: nil)
     redirect_to login_path(redirect_path: redirect_path)
   end
