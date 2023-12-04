@@ -6,6 +6,7 @@ class AuthenticationController < ApplicationController
     redirect_path = params[:redirect_path]
 
     # TODO: make user wait before attempting another login/signup
+    # TODO: refactor this case/when
     case commit
     when 'Log In'
       user = User.registered.find_by(email: params[:email])
