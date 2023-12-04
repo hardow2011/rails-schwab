@@ -44,6 +44,31 @@ function get_filtered_dates(transactions) {
     return filtered_dates;
 }
 
+function updateTransactionChart(chart, transactions, newData) {
+    chart.data.labels = [];
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data = [];
+    });
+
+    chart.data.labels = newData.map(t => t.date);
+    chart.data.datasets[0].data = newData.map(t => t.running_balance);
+    drawTendencyLine(chart, newData);
+}
+
+function drawTendencyLine(chart, data) {
+    const tendency_start = data.at(0).running_balance;
+    const tendency_end = data.at(-1).running_balance;
+    const steps = (tendency_end - tendency_start) / (data.length - 1);
+    let tendency_line = []
+
+    for (let i = 0; i <= transactions.length; i++) {
+        tendency_line.push(tendency_start + (steps * i))
+    }
+
+    chart.data.datasets[1].data = tendency_line
+    chart.update();
+}
+
 const transactions = chart_data;
 const filtered_dates = get_filtered_dates(transactions);
 
@@ -89,31 +114,6 @@ let chart = new Chart(
 );
 
 drawTendencyLine(chart, transactions);
-
-function updateTransactionChart(chart, transactions, newData) {
-    chart.data.labels = [];
-    chart.data.datasets.forEach((dataset) => {
-        dataset.data = [];
-    });
-
-    chart.data.labels = newData.map(t => t.date);
-    chart.data.datasets[0].data = newData.map(t => t.running_balance);
-    drawTendencyLine(chart, newData);
-}
-
-function drawTendencyLine(chart, data) {
-    const tendency_start = data.at(0).running_balance;
-    const tendency_end = data.at(-1).running_balance;
-    const steps = (tendency_end - tendency_start) / (data.length - 1);
-    let tendency_line = []
-
-    for (let i = 0; i <= transactions.length; i++) {
-        tendency_line.push(tendency_start + (steps * i))
-    }
-
-    chart.data.datasets[1].data = tendency_line
-    chart.update();
-}
 
 window.updateChartRange = function updateChartRange(range) {
     updateTransactionChart(chart, transactions, filtered_dates[range])
