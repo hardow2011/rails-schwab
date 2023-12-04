@@ -8,7 +8,6 @@ class SessionsController < ApplicationController
     begin
       decoded_token = JsonWebToken.decode(login_token)
     rescue JWT::ExpiredSignature
-      # TODO: add expired token flash redirect
       flash[:alert] = ['Expired token']
       redirect_to root_path
     end

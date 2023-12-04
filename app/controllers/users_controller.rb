@@ -21,7 +21,6 @@ class UsersController < ApplicationController
   end
 
   def login
-    # TODO: implement redirect path
     @role = :login
     @redirect_path = params[:redirect_path]
     @submit_msg = 'Log In'
