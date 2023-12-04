@@ -1,8 +1,22 @@
 .navbar-logout {
   form.button_to {
     flex: 1;
+
     button {
       text-align: right;
     }
+  }
+}
+
+.transactions-chart-container {
+  width: 100%;
+  height: 30vh;
+
+  @include media-breakpoint-up(sm) {
+    height: 45vh;
+  }
+
+  @include media-breakpoint-up(lg) {
+    height: 60vh;
   }
 }

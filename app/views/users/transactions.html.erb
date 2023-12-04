@@ -1,13 +1,13 @@
 <h2 class="mb-4">Summary</h2>
 
-<h4>$<%= @total_value %></h4>
+<!--<h4>$<%#= @total_value %></h4>-->
 <p>Total Value</p>
 
-<div style="width: 950px;">
+<div class="transactions-chart-container mb-3">
   <canvas id="acquisitions"></canvas>
 </div>
 
-<div class="row row-cols-auto g-1">
+<div class="row row-cols-auto g-3 g-md-1">
   <div>
     <input type="radio" class="btn-check" id="range-mo-1" name="range-selector" onclick="updateChartRange('mo_1')" autocomplete="off">
     <label class="btn btn-outline-secondary" for="range-mo-1">1 Mo</label><br>
@@ -38,8 +38,4 @@
     <label class="btn btn-outline-secondary" for="range-yr_2">2 Yr</label><br>
   </div>
 </div>
-<!-- TODO: fix issue of redeclaration when accessing page with link_to -->
 <%= javascript_include_tag "transactions_chart", type: "module" %>
-<script>
-    const chart_data = <%= sanitize @transactions %>;
-</script>
