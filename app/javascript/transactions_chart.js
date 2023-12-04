@@ -55,6 +55,49 @@ function updateTransactionChart(chart, transactions, newData) {
     drawTendencyLine(chart, newData);
 }
 
+function setChart(transactions) {
+    return new Chart(
+        document.getElementById('acquisitions'),
+        {
+            type: 'line',
+            options: {
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+                hover: {
+                    intersect: false,
+                    mode: 'index'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+            },
+            data: {
+                labels: transactions.map(row => row.date),
+                datasets: [
+                    {
+                        label: 'Running Balance',
+                        fill: true,
+                        data: transactions.map(row => row.running_balance),
+                        pointRadius: 0,
+                        pointHoverRadius: 5,
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'Tendency',
+                        fill: false,
+                        borderDash: [10, 5],
+                        pointRadius: 0,
+                        pointHoverRadius: 5,
+                    }
+                ]
+            }
+        }
+    );
+}
+
 function drawTendencyLine(chart, data) {
     const tendency_start = data.at(0).running_balance;
     const tendency_end = data.at(-1).running_balance;
@@ -69,51 +112,25 @@ function drawTendencyLine(chart, data) {
     chart.update();
 }
 
-const transactions = chart_data;
-const filtered_dates = get_filtered_dates(transactions);
+let chart = null
+let transactions = null
+let filtered_dates = null
 
-let chart = new Chart(
-    document.getElementById('acquisitions'),
-    {
-        type: 'line',
-        options: {
-            interaction: {
-                intersect: false,
-                mode: 'index'
-            },
-            hover: {
-                intersect: false,
-                mode: 'index'
-            },
-            tooltips: {
-                mode: 'index',
-                intersect: false,
-            },
-        },
-        data: {
-            labels: transactions.map(row => row.date),
-            datasets: [
-                {
-                    label: 'Running Balance',
-                    fill: true,
-                    data: transactions.map(row => row.running_balance),
-                    pointRadius: 0,
-                    pointHoverRadius: 5,
-                    borderWidth: 2
-                },
-                {
-                    label: 'Tendency',
-                    fill: false,
-                    borderDash: [10, 5],
-                    pointRadius: 0,
-                    pointHoverRadius: 5,
-                }
-            ]
-        }
-    }
-);
+fetch('/transactions_json')
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        transactions = data
+        filtered_dates = get_filtered_dates(transactions);
+        chart = setChart(transactions)
+        drawTendencyLine(chart, transactions);
+        console.log(transactions)
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
 
-drawTendencyLine(chart, transactions);
 
 window.updateChartRange = function updateChartRange(range) {
     updateTransactionChart(chart, transactions, filtered_dates[range])
