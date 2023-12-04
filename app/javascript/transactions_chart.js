@@ -61,6 +61,7 @@ function setChart(transactions) {
         {
             type: 'line',
             options: {
+                maintainAspectRatio: false,
                 interaction: {
                     intersect: false,
                     mode: 'index'
