@@ -5,6 +5,7 @@ class AuthenticationController < ApplicationController
     commit = params[:commit]
     redirect_path = params[:redirect_path]
 
+    # TODO: make user wait before attempting another login/signup
     case commit
     when 'Log In'
       user = User.registered.find_by(email: params[:email])
@@ -13,6 +14,8 @@ class AuthenticationController < ApplicationController
         redirect_to login_path
       else
         user.send_magic_link(redirect_path)
+        flash[:success] = ["Login email sent. Please check your mailbox"]
+        redirect_to login_path
       end
     when 'Sign up'
       user = User.registered.find_by(email: params[:email])
@@ -22,6 +25,8 @@ class AuthenticationController < ApplicationController
       else
         user = User.find_or_create_by(email: params[:email])
         user.send_magic_link(redirect_path)
+        flash[:success] = ["Signup email sent. Please check your mailbox"]
+        redirect_to login_path
       end
     end
   end

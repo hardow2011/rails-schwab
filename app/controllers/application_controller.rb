@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  add_flash_types :errors
+  add_flash_types :errors, :success
 
   helper_method :logged_in?
   before_action :authenticate_request!

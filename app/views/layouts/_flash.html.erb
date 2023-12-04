@@ -10,3 +10,16 @@
     </div>
   </div>
 <% end %>
+
+<% flash[:success] and flash[:success].each do |success| %>
+  <div class="position-absolute w-100 z-3 pt-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-7 col-lg-5 col-xl-4 col-xxl-3">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <p><%= success %></p>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
