@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   private
 
   def authenticate_request!
-    original_request = request.fullpath
+    original_request = request.fullpath == '/' ? nil : request.fullpath
     auth_token = session[:auth_token]
     if !auth_token
       return invalid_authentication(redirect_path: original_request)
