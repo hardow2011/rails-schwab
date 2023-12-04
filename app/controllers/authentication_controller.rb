@@ -14,14 +14,13 @@ class AuthenticationController < ApplicationController
       else
         user.send_magic_link(redirect_path)
       end
-    # TODO: what happens if user tries to register twice?
     when 'Sign up'
       user = User.registered.find_by(email: params[:email])
       if user
         flash[:errors] = ['Email already taken']
         redirect_to signup_path
       else
-        user = User.create(email: params[:email])
+        user = User.find_or_create_by(email: params[:email])
         user.send_magic_link(redirect_path)
       end
     end
