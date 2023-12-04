@@ -1,5 +1,4 @@
 module MagicLink
-  # TODO: create magic link for sign up
   def send_magic_link(redirect_path)
     generate_login_token
     UserMailer.magic_link(self, login_link(redirect_path)).deliver_now
