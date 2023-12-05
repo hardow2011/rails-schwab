@@ -7,7 +7,6 @@ class JsonWebToken
   end
 
   def self.decode(token)
-    # TODO: replace deprecated `Rails.application.secrets` in favor of `Rails.application.credentials`
     JWT.decode(token, Rails.application.credentials.secret_key_base)
   end
 
