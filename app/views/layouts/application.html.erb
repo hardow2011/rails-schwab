@@ -11,13 +11,14 @@
     <%= yield :head %>
   </head>
 
-  <body class="vh-100 position-relative">
+  <body class="vh-100 position-relative d-flex flex-column">
 
     <%= render 'layouts/nav' %>
     <%= render 'layouts/flash' %>
     <!-- TODO: fix page overflow when not in login page -->
-    <div class="container-fluid h-100">
+    <div class="container-fluid flex-grow-1 mb-5">
       <%= yield %>
     </div>
+    <%= render 'layouts/footer' %>
   </body>
 </html>
