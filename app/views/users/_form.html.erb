@@ -6,7 +6,7 @@
       </h3>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
-          <%= form_with(model: user) do |form| %>
+          <%= form_with(url: user_path, scope: user, method: :patch) do |form| %>
 
             <div class="form-floating mb-3">
               <%= form.email_field :email, { placeholder: 'Email', class: user.errors.full_messages_for(:email).empty? ? 'form-control' : 'form-control is-invalid' } %>
