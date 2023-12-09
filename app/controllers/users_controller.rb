@@ -66,7 +66,6 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @current_user.update(user_params)
-        byebug
         flash[:success] = ["User was successfully updated."]
         format.html { redirect_to user_url }
         format.json { render :show, status: :ok, location: @current_user }
