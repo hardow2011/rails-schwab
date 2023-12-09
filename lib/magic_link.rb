@@ -1,4 +1,5 @@
 module MagicLink
+  # TODO: make email execute in background job
   def send_magic_link(redirect_path)
     generate_login_token
     UserMailer.magic_link(self, login_link(redirect_path)).deliver_now

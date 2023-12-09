@@ -11,6 +11,9 @@
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #
+
+# TODO: combine show and edit pages
+# TODO: Allow user to update email
 class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: URI::MailTo::EMAIL_REGEXP, confirmation: { case_sensitive: false }
 
