@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "users#transactions"
   resources :users, only: [:create]
-  get '/edit', to: 'users#edit', as: 'edit_user'
   get '/user', to: 'users#show'
   get '/signup', to: 'users#new'
   get '/login', to: 'users#login'
