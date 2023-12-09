@@ -1,57 +1,46 @@
-<div class="row align-items-center justify-content-center h-100">
+<div class="row align-items-center justify-content-center h-100 my-auto">
   <div class="col-sm-7 col-lg-5 col-xl-4 col-xxl-3">
     <div class="card w-m">
       <h3 class="card-header">
         Schwab
       </h3>
-      <div class="card-body">
-        <%= form_with(model: user) do |form| %>
-          <%# if user.errors.any? %>
-<!--            <div style="color: red">-->
-<!--              <h2><%#= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>-->
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <%= form_with(model: user) do |form| %>
 
-<!--              <ul>-->
-                <%# user.errors.each do |error| %>
-<!--                  <li><%#= error.full_message %></li>-->
-                <%# end %>
-<!--              </ul>-->
-<!--            </div>-->
-          <%# end %>
-
-          <div class="form-floating mb-3">
-            <%= form.email_field :email, { placeholder: 'Email', class: user.errors.full_messages_for(:email).empty? ? 'form-control' : 'form-control is-invalid' } %>
-            <%= form.label :email, class: 'form-label' %>
-            <div class="invalid-feedback">
-              <ul>
-                <% user.errors.full_messages_for(:email).each do |error| %>
-                  <li><%= error %></li>
-                <% end %>
-              </ul>
+            <div class="form-floating mb-3">
+              <%= form.email_field :email, { placeholder: 'Email', class: user.errors.full_messages_for(:email).empty? ? 'form-control' : 'form-control is-invalid' } %>
+              <%= form.label :email, class: 'form-label' %>
+              <div class="invalid-feedback">
+                <ul>
+                  <% user.errors.full_messages_for(:email).each do |error| %>
+                    <li><%= error %></li>
+                  <% end %>
+                </ul>
+              </div>
             </div>
-          </div>
 
-          <div class="form-floating mb-3">
-            <%= form.password_field :password, { placeholder: 'Password', class: (user.errors.full_messages_for(:password).empty? and user.errors.full_messages_for(:password_confirmation).empty?) ? 'form-control' : 'form-control is-invalid' } %>
-            <%= form.label :password, class: 'form-label' %>
-            <div class="invalid-feedback">
-              <ul>
-                <% (user.errors.full_messages_for(:password) + user.errors.full_messages_for(:password_confirmation)).each do |error| %>
-                  <li><%= error %></li>
-                <% end %>
-              </ul>
+            <div>
+              <%= form.submit 'Change Email', class: 'btn btn-primary ms-auto d-flex' %>
             </div>
-          </div>
 
-          <div class="form-floating mb-3">
-            <%= form.password_field :password_confirmation, { placeholder: 'Password confirmation', class: (user.errors.full_messages_for(:password).empty? and user.errors.full_messages_for(:password_confirmation).empty?) ? 'form-control' : 'form-control is-invalid' } %>
-            <%= form.label :password_confirmation, class: 'form-label' %>
-          </div>
+          <% end %>
+        </li>
+        <li class="list-group-item">
+          <p>
+            You currently have <%= pluralize(user.transactions.size, 'transaction') %> in total
+          </p>
+          <%= form_tag transactions_csv_path, multipart: true do %>
+            <div class="mb-3">
+              <%= label_tag :csv, 'Transactions CSV', class: 'form-label' %>
+<!--              <input class="form-control" type="file" id="formFile">-->
+              <%= file_field :csv, nil, accept: 'text/csv', class: "form-control" %>
+            </div>
+            <%= submit_tag 'Upload Transactions', class: 'btn btn-primary ms-auto d-flex' %>
+          <% end %>
+        </li>
+      </ul>
 
-          <div>
-            <%= form.submit 'Sign Up', class: 'btn btn-primary ms-auto d-flex' %>
-          </div>
-        <% end %>
-      </div>
     </div>
   </div>
 </div>

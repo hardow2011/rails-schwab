@@ -11,11 +11,11 @@
     <%= yield :head %>
   </head>
 
-  <body class="vh-100 position-relative d-flex flex-column">
+  <body class="min-vh-100 position-relative d-flex flex-column">
 
     <%= render 'layouts/nav' %>
     <%= render 'layouts/flash' %>
-    <div class="container-fluid flex-grow-1 mb-5">
+    <div class="container-fluid flex-grow-1 mb-5 d-flex flex-column">
       <%= yield %>
     </div>
     <%= render 'layouts/footer' %>
