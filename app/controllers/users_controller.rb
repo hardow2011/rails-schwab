@@ -68,7 +68,7 @@ class UsersController < ApplicationController
       if @current_user.update(user_params)
         byebug
         flash[:success] = ["User was successfully updated."]
-        format.html { redirect_to user_url(@current_user) }
+        format.html { redirect_to user_url }
         format.json { render :show, status: :ok, location: @current_user }
       else
         format.html { render :edit, status: :unprocessable_entity }
