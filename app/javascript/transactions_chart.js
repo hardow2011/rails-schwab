@@ -117,20 +117,22 @@ let chart = null
 let transactions = null
 let filtered_dates = null
 
-fetch('/transactions_json')
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (data) {
-        transactions = JSON.parse(data.chart_data)
-        filtered_dates = get_filtered_dates(transactions);
-        chart = setChart(transactions);
-        document.getElementById("chart_data").textContent= '$' + data.total_value
-        drawTendencyLine(chart, transactions);
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
+document.addEventListener("turbo:load", function () {
+    fetch('/transactions_json')
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            transactions = JSON.parse(data.chart_data)
+            filtered_dates = get_filtered_dates(transactions);
+            chart = setChart(transactions);
+            document.getElementById("chart_data").textContent = '$' + data.total_value
+            drawTendencyLine(chart, transactions);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+});
 
 
 window.updateChartRange = function updateChartRange(range) {
