@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id                      :bigint           not null, primary key
+#  change_email_token      :string
 #  email                   :string
 #  login_token             :string
 #  login_token_verified_at :datetime
