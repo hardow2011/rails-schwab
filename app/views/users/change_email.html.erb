@@ -1,0 +1,34 @@
+<div class="row align-items-center justify-content-center h-100">
+  <div class="col-sm-7 col-lg-5 col-xl-4 col-xxl-3">
+    <div class="card w-m">
+      <h3 class="card-header">
+        Schwab
+      </h3>
+      <div class="card-body">
+        <%= form_with(url: update_email_path, model: @current_user) do |form| %>
+          <%= hidden_field_tag :email_change_token, email_change_token, scope: nil %>
+          <div class="mb-3">
+            <%= form.label :email, 'Current Email', class: 'form-label' %>
+            <%= form.email_field :email, { placeholder: 'Email', disabled: true, class: 'form-control bg-secondary-subtle' } %>
+          </div>
+          <div class="mb-3">
+            <%= form.label :email, 'New Email', class: 'form-label' %>
+            <%= form.email_field :new_email, { class: flash[:errors].blank? ? 'form-control' : 'form-control is-invalid' } %>
+            <div class="invalid-feedback">
+              <ul>
+                <% flash[:errors] and flash[:errors].each do |error| %>
+                  <li><%= error %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+          <div class="mb-3">
+            <%= form.label :email, 'New Email Confirmation', class: 'form-label' %>
+            <%= form.email_field :new_email_confirmation, { class: flash[:errors].blank? ? 'form-control' : 'form-control is-invalid' } %>
+          </div>
+          <%= form.submit 'Change Email', class: 'btn btn-primary ms-auto d-flex' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -27,6 +27,15 @@ class SessionsController < ApplicationController
     end
   end
 
+  def change_email
+    email_change_token = params[:email_change_token]
+    decoded_token = JsonWebToken.decode(email_change_token)
+
+    if decoded_token && JsonWebToken.valid_payload(decoded_token.first)
+      render 'users/change_email', locals: { email_change_token: email_change_token }
+    end
+  end
+
   def destroy
     session[:auth_token] = nil
     @current_user.logout!
