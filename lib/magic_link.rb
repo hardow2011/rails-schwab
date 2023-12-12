@@ -6,7 +6,8 @@ module MagicLink
   end
 
   def request_email_change
-
+    generate_email_change_token
+    UserMailer.request_email_change(self, request_email_change_link).deliver_now
   end
 
   def generate_login_token
@@ -18,10 +19,25 @@ module MagicLink
     save!
   end
 
+  def generate_email_change_token
+    payload = {
+      email: email,
+      exp: 1.hour.from_now.to_i
+    }
+    self.email_change_token = generate_token(payload)
+    save!
+  end
+
   def login_link(redirect_path)
     Rails.application.routes.url_helpers.sessions_url(
       login_token: login_token,
       redirect_path: redirect_path)
+  end
+
+  def request_email_change_link
+    Rails.application.routes.url_helpers.change_email_url(
+      email_change_token: email_change_token
+    )
   end
 
   def generate_auth_token
