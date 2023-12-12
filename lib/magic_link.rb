@@ -5,6 +5,10 @@ module MagicLink
     UserMailer.magic_link(self, login_link(redirect_path)).deliver_now
   end
 
+  def request_email_change
+
+  end
+
   def generate_login_token
     payload = {
       email: email,

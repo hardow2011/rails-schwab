@@ -32,4 +32,8 @@ class User < ApplicationRecord
   def registered?
     registered
   end
+
+  def self.email_taken?(email)
+    !!User.find_by(email: email)
+  end
 end

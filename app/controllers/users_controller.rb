@@ -62,6 +62,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def change_email
+    # byebug
+    @current_user.request_email_change
+  end
+
   # PATCH/PUT /users/1 or /users/1.json
   def update
     respond_to do |format|
@@ -98,6 +103,6 @@ class UsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation)
+    params.require(:user).permit(:email)
   end
 end

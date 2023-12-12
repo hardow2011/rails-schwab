@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   root "users#transactions"
   resources :users, only: [:create]
   patch '/user', to: 'users#update'
+  get '/change_email', to: 'users#change_email'
   get '/user', to: 'users#show'
   get '/signup', to: 'users#new'
   get '/login', to: 'users#login'
