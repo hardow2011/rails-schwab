@@ -62,9 +62,42 @@ class UsersController < ApplicationController
     end
   end
 
-  def change_email
+  def request_email_change
     # byebug
     @current_user.request_email_change
+    flash[:success] = ["Follow the instructions sent to your mailbox to change your email."]
+    redirect_to user_url
+  end
+
+  def update_email
+    email_change_token = params[:email_change_token]
+    decoded_token = JsonWebToken.decode(email_change_token)
+
+    unless decoded_token and JsonWebToken.valid_payload(decoded_token.first)
+      flash[:alert] = ['Invalid token']
+      redirect_to root_path
+    end
+
+    new_email = user_params[:new_email].strip
+    new_email_confirmation = user_params[:new_email_confirmation].strip
+
+    if new_email == new_email_confirmation
+      if new_email.blank?
+        flash[:errors] = ['Emails can\'t be empty.']
+        redirect_to change_email_path(email_change_token: email_change_token)
+      elsif new_email == @current_user.email
+        flash[:errors] = ['New email cannot be the same as the current one']
+        redirect_to change_email_path(email_change_token: email_change_token)
+      elsif User.email_taken?(new_email)
+        flash[:errors] = ['Email already taken.']
+        redirect_to change_email_path(email_change_token: email_change_token)
+      else
+      #   TODO: send email to new email to confirm
+      end
+    else
+      flash[:errors] = ['Emails must match.']
+      redirect_to change_email_path(email_change_token: email_change_token)
+    end
   end
 
   # PATCH/PUT /users/1 or /users/1.json
@@ -103,6 +136,6 @@ class UsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:email)
+    params.require(:user).permit(:email, :new_email, :new_email_confirmation)
   end
 end
