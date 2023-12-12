@@ -9,14 +9,16 @@ Rails.application.routes.draw do
   root "users#transactions"
   resources :users, only: [:create]
   patch '/user', to: 'users#update'
-  get '/change_email', to: 'users#change_email'
+  get '/request_email_change', to: 'users#request_email_change'
   get '/user', to: 'users#show'
+  patch '/update_email', to: 'users#update_email'
   get '/signup', to: 'users#new'
   get '/login', to: 'users#login'
 
   resources :sessions, only: [:destroy]
   match 'sessions', to: 'sessions#create', via: :get
   delete '/sessions', to: 'sessions#destroy'
+  get '/change_email', to: 'sessions#change_email'
 
   post '/transactions_csv', to: 'users#transactions_csv'
   get '/transactions_json', to: 'users#transactions_json'
