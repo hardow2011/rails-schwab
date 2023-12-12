@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   def authenticate_request!
     original_request = request.fullpath == '/' ? nil : request.fullpath
     auth_token = session[:auth_token]
-    if !auth_token
+    unless auth_token and payload(auth_token)
       return invalid_authentication(redirect_path: original_request)
     end
 
@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def invalid_authentication(redirect_path: nil)
+    session[:auth_token] = nil
     redirect_to login_path(redirect_path: redirect_path)
   end
 
