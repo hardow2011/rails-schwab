@@ -13,4 +13,12 @@ class UserMailer < ApplicationMailer
 
     mail to: @user.email, subject: subject
   end
+
+  def request_email_change(user, email_change_request_link)
+    @user = user
+    @email_change_request_link = email_change_request_link
+    subject = 'Request to change email'
+
+    mail to: @user.email, subject: subject
+  end
 end
