@@ -10,6 +10,11 @@ module MagicLink
     UserMailer.request_email_change(self, request_email_change_link).deliver_now
   end
 
+  def update_email(new_email)
+    generate_email_change_token(new_email)
+    UserMailer.update_email(self, update_email_link).deliver_now
+  end
+
   def generate_login_token
     payload = {
       email: email,
@@ -19,11 +24,12 @@ module MagicLink
     save!
   end
 
-  def generate_email_change_token
+  def generate_email_change_token(new_email = nil)
     payload = {
       email: email,
       exp: 1.hour.from_now.to_i
     }
+    payload[:new_email] = new_email if new_email
     self.email_change_token = generate_token(payload)
     save!
   end
@@ -37,6 +43,12 @@ module MagicLink
   def request_email_change_link
     Rails.application.routes.url_helpers.change_email_url(
       email_change_token: email_change_token
+    )
+  end
+
+  def update_email_link
+    Rails.application.routes.url_helpers.confirm_email_update_url(
+      email_update_token: email_change_token
     )
   end
 

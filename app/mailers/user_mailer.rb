@@ -21,4 +21,11 @@ class UserMailer < ApplicationMailer
 
     mail to: @user.email, subject: subject
   end
+
+  def update_email(new_email, update_email_link)
+    @update_email_link = update_email_link
+    @new_email = new_email
+    subject = 'Confirm email change'
+    mail to: new_email, subject: subject
+  end
 end

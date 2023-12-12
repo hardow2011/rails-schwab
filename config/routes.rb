@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get '/request_email_change', to: 'users#request_email_change'
   get '/user', to: 'users#show'
   patch '/update_email', to: 'users#update_email'
+  get '/confirm_email_update', to: 'users#confirm_email_update'
   get '/signup', to: 'users#new'
   get '/login', to: 'users#login'
 

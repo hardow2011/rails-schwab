@@ -34,6 +34,13 @@ class User < ApplicationRecord
     registered
   end
 
+  def confirm_email_update(new_email)
+    # TODO: do something about the session with the old email
+    self.email = new_email
+    self.email_change_token = nil
+    save!
+  end
+
   def self.email_taken?(email)
     !!User.find_by(email: email)
   end

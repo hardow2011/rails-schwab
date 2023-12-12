@@ -92,11 +92,26 @@ class UsersController < ApplicationController
         flash[:errors] = ['Email already taken.']
         redirect_to change_email_path(email_change_token: email_change_token)
       else
-      #   TODO: send email to new email to confirm
+        #   TODO: send email to new email to confirm
+        @current_user.update_email(new_email)
+        flash[:success] = ["Check #{new_email} inbox to finalize email change"]
+        redirect_to user_path
       end
     else
       flash[:errors] = ['Emails must match.']
       redirect_to change_email_path(email_change_token: email_change_token)
+    end
+  end
+
+  def confirm_email_update
+    email_update_token = params[:email_update_token]
+    decoded_token = JsonWebToken.decode(email_update_token)
+
+    if decoded_token && JsonWebToken.valid_payload(decoded_token.first)
+      new_email = decoded_token.first['new_email']
+      @current_user.confirm_email_update(new_email)
+      flash[:success] = ["Email updated successfully"]
+      redirect_to root_path
     end
   end
 
