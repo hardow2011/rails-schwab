@@ -34,6 +34,9 @@ class SessionsController < ApplicationController
     if decoded_token && JsonWebToken.valid_payload(decoded_token.first)
       render 'users/change_email', locals: { email_change_token: email_change_token }
     end
+
+    flash[:alert] = ['Expired or Invalid session']
+    redirect_to root_path
   end
 
   def destroy
