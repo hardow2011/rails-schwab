@@ -74,7 +74,7 @@ class UsersController < ApplicationController
     decoded_token = JsonWebToken.decode(email_change_token)
 
     unless decoded_token and JsonWebToken.valid_payload(decoded_token.first)
-      flash[:alert] = ['Invalid token']
+      flash[:alert] = ['Expired or Invalid session']
       redirect_to root_path
     end
 
