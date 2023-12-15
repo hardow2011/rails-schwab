@@ -33,9 +33,16 @@ class UsersController < ApplicationController
   end
 
   def transactions_csv
-    uploaded_file = params[:csv].values[0]
-    current_user.set_transactions(uploaded_file)
-    redirect_to user_url
+    if params[:csv]
+      uploaded_file = params[:csv][0]
+      @current_user.set_transactions(uploaded_file)
+      flash[:success] = ["Successfully uploaded #{@current_user.transactions.length} transactions."]
+      redirect_to user_url
+      return
+    else
+      flash[:errors] = { csv: ['Transactions CSV can\'t be blank.'] }
+      redirect_to user_url
+    end
   end
 
   def transactions_json

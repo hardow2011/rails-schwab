@@ -23,7 +23,14 @@
           </p>
           <%= form_tag transactions_csv_path, multipart: true do %>
             <div class="mb-3">
-              <%= file_field :csv, nil, accept: 'text/csv', class: "form-control" %>
+              <%= file_field :csv, nil, accept: 'text/csv', required: true, class: (flash[:errors] and flash[:errors]['csv']) ? 'form-control is-invalid' : 'form-control' %>
+              <div class="invalid-feedback">
+                <ul>
+                  <% flash[:errors] and flash[:errors]['csv'] and flash[:errors]['csv'].each do |err| %>
+                    <li><%= err %></li>
+                  <% end %>
+                </ul>
+              </div>
             </div>
             <%= submit_tag 'Upload Transactions CSV', class: 'btn btn-primary ms-auto d-flex' %>
           <% end %>
