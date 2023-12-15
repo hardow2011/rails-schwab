@@ -15,8 +15,6 @@
 
 one:
   email: cajeipracrafo-2606@yopmail.com
-  password_digest: <%= BCrypt::Password.create('cajeipracrafo') %>
 
 two:
   email: brohoipunnova-1759@yopmail.com
-  password_digest: <%= BCrypt::Password.create('brohoipunnova') %>
