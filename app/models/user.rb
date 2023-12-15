@@ -13,9 +13,9 @@
 #  updated_at              :datetime         not null
 #
 
-# TODO: Strip white spaces before saving email
 class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: URI::MailTo::EMAIL_REGEXP, confirmation: { case_sensitive: false }
+  before_save { self.email = email.strip }
 
   include TransactionsBuilder
   include MagicLink
