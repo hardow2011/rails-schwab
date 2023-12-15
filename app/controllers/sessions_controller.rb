@@ -31,9 +31,10 @@ class SessionsController < ApplicationController
     email_change_token = params[:email_change_token]
     decoded_token = JsonWebToken.decode(email_change_token)
 
+    # Check that the user requesting the email change exists.
     # Check that decoded_token.first['new_email'].nil? to confirm that the...
     # token is meant to request an email change and not update it yet
-    if decoded_token && decoded_token.first['new_email'].nil? && JsonWebToken.valid_payload(decoded_token.first)
+    if decoded_token && User.find_by(email: decoded_token.first['email']) && decoded_token.first['new_email'].nil? && JsonWebToken.valid_payload(decoded_token.first)
       render 'users/change_email', locals: { email_change_token: email_change_token }
     else
       flash[:alert] = ['Expired or Invalid session']
