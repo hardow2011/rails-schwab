@@ -12,7 +12,7 @@ module MagicLink
 
   def update_email(new_email)
     generate_email_change_token(new_email)
-    UserMailer.update_email(self, update_email_link).deliver_later
+    UserMailer.update_email(new_email, update_email_link).deliver_later
   end
 
   def generate_login_token
