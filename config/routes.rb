@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -25,4 +27,8 @@ Rails.application.routes.draw do
   get '/transactions_json', to: 'users#transactions_json'
 
   post '/authenticate', to: 'authentication#create'
+
+  if Rails.env.development?
+    mount Sidekiq::Web => '/sidekiq'
+  end
 end
