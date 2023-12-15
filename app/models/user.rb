@@ -13,9 +13,7 @@
 #  updated_at              :datetime         not null
 #
 
-# TODO: Allow user to update email
 # TODO: Strip white spaces before saving email
-# TODO: Make sure token is valid at every step of email change and email change links cannot be reused
 class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: URI::MailTo::EMAIL_REGEXP, confirmation: { case_sensitive: false }
 
