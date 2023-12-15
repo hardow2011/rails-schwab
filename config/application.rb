@@ -25,6 +25,7 @@ module Schwab
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Make sidekiq the default queuing backend
+    # Start sidekiq with 'bundle exec sidekiq'
     config.active_job.queue_adapter = :sidekiq
   end
 end
