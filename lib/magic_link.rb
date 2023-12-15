@@ -2,17 +2,17 @@ module MagicLink
   # TODO: make email execute in background job
   def send_magic_link(redirect_path)
     generate_login_token
-    UserMailer.magic_link(self, login_link(redirect_path)).deliver_now
+    UserMailer.magic_link(self, login_link(redirect_path)).deliver_later
   end
 
   def request_email_change
     generate_email_change_token
-    UserMailer.request_email_change(self, request_email_change_link).deliver_now
+    UserMailer.request_email_change(self, request_email_change_link).deliver_later
   end
 
   def update_email(new_email)
     generate_email_change_token(new_email)
-    UserMailer.update_email(self, update_email_link).deliver_now
+    UserMailer.update_email(self, update_email_link).deliver_later
   end
 
   def generate_login_token
