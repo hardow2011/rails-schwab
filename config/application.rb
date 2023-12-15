@@ -23,5 +23,8 @@ module Schwab
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Make sidekiq the default queuing backend
+    config.active_job.queue_adapter = :sidekiq
   end
 end
