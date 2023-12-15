@@ -108,7 +108,7 @@ class UsersController < ApplicationController
     email_update_token = params[:email_update_token]
     decoded_token = JsonWebToken.decode(email_update_token)
 
-    if decoded_token && decoded_token.first['new_email'].present? && JsonWebToken.valid_payload(decoded_token.first)
+    if decoded_token && decoded_token.first['new_email'].present? && User.where(email_change_token: email_update_token).exists? && JsonWebToken.valid_payload(decoded_token.first)
       new_email = decoded_token.first['new_email']
       @current_user.confirm_email_update(new_email)
       flash[:success] = ["Email updated successfully"]
