@@ -24,7 +24,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should not save user without email" do
-    user = User.new(password: 'mypassword')
+    user = User.new
     assert_not user.save, 'Saved the user without an email'
   end
 
@@ -34,9 +34,10 @@ class UserTest < ActiveSupport::TestCase
     assert_includes user.errors[:email], 'is invalid', 'Saved the user with an invalid email'
   end
 
-  test "should not save user without password" do
-    user = User.new(email: 'deo@njode.com')
-    assert_not user.save, 'Saved the user without a password'
+  test "new user should be unregistered by default" do
+    user = User.new(email: 'new@user.com')
+    user.save
+    assert_equal false, user.registered?
   end
 
   test "transactions csv should set correct amount of transactions" do
