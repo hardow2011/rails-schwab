@@ -12,8 +12,14 @@ module ActiveSupport
 
     # Add more helper methods to be used by all tests here...
     module SignInHelper
-      def sign_in_as(user, password)
-        post sessions_url, params: { email: @user.email, password: @user_password }
+      def login_as(user, redirect_path = nil)
+        params = { email: user.email, commit: 'Log In' }
+        params[:redirect_path] = redirect_path if redirect_path
+        post authenticate_path, params: params
+        get sessions_path, params: { login_token: JsonWebToken.encode({
+                                                                                   email: user.email,
+                                                                                   exp: 1.hour.from_now.to_i
+                                                                                 }) }
       end
     end
 
