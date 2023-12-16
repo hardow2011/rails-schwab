@@ -11,7 +11,8 @@ class ApplicationController < ActionController::Base
   private
 
   def authenticate_request!
-    original_request = request.fullpath == '/' ? nil : request.fullpath
+    paths_to_be_redirected = [user_path]
+    original_request = paths_to_be_redirected.include?(request.fullpath) ? request.fullpath: nil
     auth_token = session[:auth_token]
     unless auth_token and payload(auth_token)
       return invalid_authentication(redirect_path: original_request)
