@@ -19,12 +19,22 @@ module ActiveSupport
         get sessions_path, params: { login_token: JsonWebToken.encode({
                                                                                    email: user.email,
                                                                                    exp: 1.hour.from_now.to_i
-                                                                                 }) }
+                                                                      }) }
+      end
+    end
+
+    module SystemTestHelper
+      def get_job_link(job)
+        job[:args].last['args'].last
       end
     end
 
     class ActionDispatch::IntegrationTest
       include SignInHelper
+    end
+
+    class ActionDispatch::SystemTestCase
+      include SystemTestHelper
     end
   end
 end
