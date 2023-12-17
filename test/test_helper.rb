@@ -11,7 +11,7 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
-    module SignInHelper
+    module FunctionalTestsHelper
       def login_as(user, redirect_path = nil)
         params = { email: user.email, commit: 'Log In' }
         params[:redirect_path] = redirect_path if redirect_path
@@ -23,18 +23,18 @@ module ActiveSupport
       end
     end
 
-    module SystemTestHelper
+    module SystemTestsHelper
       def get_job_link(job)
         job[:args].last['args'].last
       end
     end
 
     class ActionDispatch::IntegrationTest
-      include SignInHelper
+      include FunctionalTestsHelper
     end
 
     class ActionDispatch::SystemTestCase
-      include SystemTestHelper
+      include SystemTestsHelper
     end
   end
 end
