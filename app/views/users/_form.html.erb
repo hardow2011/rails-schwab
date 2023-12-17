@@ -19,7 +19,7 @@
         </li>
         <li class="list-group-item">
           <p>
-            You currently have <%= pluralize(user.transactions.size, 'transaction') %> in total
+            You currently have <%= pluralize(user.transactions.size, 'transaction') %> in total.
           </p>
           <%= form_tag transactions_csv_path, multipart: true do %>
             <div class="mb-3">
