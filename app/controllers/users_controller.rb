@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @redirect_path = params[:redirect_path]
-    @submit_msg = 'Sign up'
+    @submit_msg = 'Sign Up'
     @alternate_link = login_path
     @alternate_txt = 'Already registered? Login here'
   end

@@ -18,7 +18,7 @@ class AuthenticationController < ApplicationController
         flash[:success] = ["Login email sent. Please check your inbox"]
         redirect_to login_path
       end
-    when 'Sign up'
+    when 'Sign Up'
       user = User.registered.find_by(email: params[:email])
       if user
         flash[:errors] = ['Email already taken']
