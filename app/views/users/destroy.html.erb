@@ -13,7 +13,14 @@
           </div>
           <div class="mb-3">
             <%= form.label :email, 'Re-type your email', class: 'form-label' %>
-            <%= form.email_field :new_email_confirmation, { class: flash[:errors].blank? ? 'form-control' : 'form-control is-invalid' } %>
+            <%= form.email_field :retyped_email, { class: flash[:errors].blank? ? 'form-control' : 'form-control is-invalid' } %>
+            <div class="invalid-feedback">
+              <ul>
+                <% flash[:errors] and flash[:errors].each do |error| %>
+                  <li><%= error %></li>
+                <% end %>
+              </ul>
+            </div>
           </div>
           <%= form.submit 'Delete User', class: 'btn btn-danger ms-auto d-flex' %>
         <% end %>

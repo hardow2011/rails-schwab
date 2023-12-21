@@ -152,8 +152,14 @@ class UsersController < ApplicationController
   def destroy
     user_destroy_token = params[:user_destroy_token]
     decoded_token = JsonWebToken.decode(user_destroy_token)
+    retyped_email = user_params[:retyped_email].strip
 
     if decoded_token && User.find_by(email: decoded_token.first['email']) && User.where(destroy_token: user_destroy_token).exists? && JsonWebToken.valid_payload(decoded_token.first)
+      if retyped_email != @current_user.email
+        flash[:errors] = ["Emails must match."]
+        redirect_to process_user_destroy_request_path(user_destroy_token: user_destroy_token)
+        return
+      end
       if @current_user.destroy_user!
         flash[:success] = ["User deleted successfully"]
         session[:auth_token] = nil
@@ -188,6 +194,6 @@ class UsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:email, :new_email, :new_email_confirmation)
+    params.require(:user).permit(:email, :new_email, :new_email_confirmation, :retyped_email)
   end
 end
