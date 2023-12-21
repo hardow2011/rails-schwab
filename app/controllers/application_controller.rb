@@ -25,7 +25,6 @@ class ApplicationController < ActionController::Base
   end
 
   def invalid_authentication(redirect_path: nil)
-    byebug
     session[:auth_token] = nil
     redirect_to login_path(redirect_path: redirect_path)
   end
