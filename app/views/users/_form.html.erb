@@ -35,6 +35,11 @@
             <%= submit_tag 'Upload Transactions CSV', class: 'btn btn-primary ms-auto d-flex' %>
           <% end %>
         </li>
+        <li class="list-group-item">
+          <%= form_tag destroy_path, id: 'destroy_user_form' do %>
+            <%= link_to 'Delete User', nil, :onclick => "document.getElementById('destroy_user_form').submit();", class: 'link-danger' %>
+        <% end %>
+        </li>
       </ul>
 
     </div>
