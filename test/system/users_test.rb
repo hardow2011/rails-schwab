@@ -86,7 +86,7 @@ class UsersTest < ApplicationSystemTestCase
     # Not sure why
     sleep 0.1
 
-    assert_text "Check #{new_email} inbox to finalize email change."
+    assert_text "Check #{new_email} inbox to finalize the email change."
 
     visit get_job_link(enqueued_jobs.last)
 

@@ -102,7 +102,7 @@ class UsersController < ApplicationController
       else
         #   TODO: send email to new email to confirm
         @current_user.update_email(new_email)
-        flash[:success] = ["Check #{new_email} inbox to finalize email change."]
+        flash[:success] = ["Check #{new_email} inbox to finalize the email change."]
         redirect_to user_path
       end
     else
@@ -118,6 +118,7 @@ class UsersController < ApplicationController
     if decoded_token && decoded_token.first['new_email'].present? && User.where(email_change_token: email_update_token).exists? && JsonWebToken.valid_payload(decoded_token.first)
       new_email = decoded_token.first['new_email']
       @current_user.confirm_email_update(new_email)
+      session[:auth_token] = user.generate_auth_token
       flash[:success] = ["Email updated successfully."]
       redirect_to root_path
       return
