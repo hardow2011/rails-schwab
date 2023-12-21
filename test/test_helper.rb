@@ -27,6 +27,26 @@ module ActiveSupport
       def get_job_link(job)
         job[:args].last['args'].last
       end
+
+      def login(user)
+        visit root_url
+
+        assert_selector 'input[value="Log In"]'
+
+        fill_in 'Email', with: user.email
+
+        perform_enqueued_jobs do
+          click_on 'Log In'
+        end
+
+        assert_text 'Login email sent. Please check your inbox'
+
+        visit get_job_link(enqueued_jobs.last)
+
+        assert_text 'Summary'
+        assert_text '$0'
+        assert_text 'Total Value'
+      end
     end
 
     class ActionDispatch::IntegrationTest
