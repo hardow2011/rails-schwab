@@ -142,11 +142,14 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1 or /users/1.json
-  def destroy
+  def request_destroy
     @current_user.request_destroy
     flash[:success] = ["Follow the instructions sent to your mailbox to delete your user."]
     redirect_to user_url
+  end
+
+  # DELETE /users/1 or /users/1.json
+  def destroy
     # @current_user.destroy!
 
     respond_to do |format|

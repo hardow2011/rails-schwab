@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   root "users#transactions"
   resources :users, only: [:create]
   patch '/user', to: 'users#update'
-  post '/destroy', to: 'users#destroy'
+  post '/request_destroy', to: 'users#request_destroy'
   get '/request_email_change', to: 'users#request_email_change'
   get '/user', to: 'users#show'
   patch '/update_email', to: 'users#update_email'
