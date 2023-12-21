@@ -118,7 +118,7 @@ class UsersController < ApplicationController
     if decoded_token && decoded_token.first['new_email'].present? && User.where(email_change_token: email_update_token).exists? && JsonWebToken.valid_payload(decoded_token.first)
       new_email = decoded_token.first['new_email']
       @current_user.confirm_email_update(new_email)
-      flash[:success] = ["Email updated successfully"]
+      flash[:success] = ["Email updated successfully."]
       redirect_to root_path
       return
     end
