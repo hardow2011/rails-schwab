@@ -28,4 +28,12 @@ class UserMailer < ApplicationMailer
     subject = 'Confirm email change'
     mail to: new_email, subject: subject
   end
+
+  def request_destroy(user, request_user_destroy_link)
+    @user = user
+    @request_user_destroy_link = request_user_destroy_link
+
+    subject = 'User Deletion Request'
+    mail to: @user.email, subject: subject
+  end
 end

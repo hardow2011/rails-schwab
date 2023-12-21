@@ -42,6 +42,19 @@ class SessionsController < ApplicationController
     end
   end
 
+  def process_user_destroy_request
+    user_destroy_token = params[:user_destroy_token]
+    decoded_token = JsonWebToken.decode(user_destroy_token)
+
+    if decoded_token && User.find_by(email: decoded_token.first['email']) && User.where(destroy_token: user_destroy_token).exists? && JsonWebToken.valid_payload(decoded_token.first)
+      @destroy_token = user_destroy_token
+      render 'users/destroy', locals: { user_destroy_token: user_destroy_token }
+    else
+      flash[:alert] = ['Expired or Invalid session']
+      redirect_to root_path
+    end
+  end
+
   def destroy
     session[:auth_token] = nil
     @current_user.logout!

@@ -1,0 +1,23 @@
+<div class="row align-items-center justify-content-center h-100">
+  <div class="col-sm-7 col-lg-5 col-xl-4 col-xxl-3">
+    <div class="card w-m">
+      <h3 class="card-header">
+        Schwab
+      </h3>
+      <div class="card-body">
+        <%= form_with(url: destroy_user_path, model: @current_user, method: :post) do |form| %>
+          <%= hidden_field_tag :user_destroy_token, user_destroy_token, scope: nil %>
+          <div class="mb-3">
+            <%= form.label :email, 'Current Email', class: 'form-label' %>
+            <%= form.email_field :email, { placeholder: 'Email', disabled: true, class: 'form-control bg-secondary-subtle' } %>
+          </div>
+          <div class="mb-3">
+            <%= form.label :email, 'Re-type your email', class: 'form-label' %>
+            <%= form.email_field :new_email_confirmation, { class: flash[:errors].blank? ? 'form-control' : 'form-control is-invalid' } %>
+          </div>
+          <%= form.submit 'Delete User', class: 'btn btn-danger ms-auto d-flex' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

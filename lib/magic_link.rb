@@ -14,6 +14,11 @@ module MagicLink
     UserMailer.update_email(new_email, update_email_link).deliver_later
   end
 
+  def request_destroy
+    generate_user_destroy_token
+    UserMailer.request_destroy(self, request_user_destroy_link).deliver_later
+  end
+
   def generate_login_token
     payload = {
       email: email,
@@ -33,6 +38,15 @@ module MagicLink
     save!
   end
 
+  def generate_user_destroy_token
+    payload = {
+      email: email,
+      exp: 1.hour.from_now.to_i
+    }
+    self.destroy_token = generate_token(payload)
+    save!
+  end
+
   def login_link(redirect_path)
     Rails.application.routes.url_helpers.sessions_url(
       login_token: login_token,
@@ -48,6 +62,12 @@ module MagicLink
   def update_email_link
     Rails.application.routes.url_helpers.confirm_email_update_url(
       email_update_token: email_change_token
+    )
+  end
+
+  def request_user_destroy_link
+    Rails.application.routes.url_helpers.process_user_destroy_request_url(
+      user_destroy_token: destroy_token
     )
   end
 

@@ -150,12 +150,30 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
+    user_destroy_token = params[:user_destroy_token]
+    decoded_token = JsonWebToken.decode(user_destroy_token)
+
+    if decoded_token && User.find_by(email: decoded_token.first['email']) && User.where(destroy_token: user_destroy_token).exists? && JsonWebToken.valid_payload(decoded_token.first)
+      if @current_user.destroy_user!
+        flash[:success] = ["User deleted successfully"]
+        session[:auth_token] = nil
+        redirect_to login_path
+        return
+      else
+        flash[:errors] = ["An error has occurred"]
+      end
+      flash[:alert] = ['Expired or Invalid session']
+    end
+
+    redirect_to root_path
+    return
+
     # @current_user.destroy!
 
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: "User was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    # respond_to do |format|
+    #   format.html { redirect_to users_url, notice: "User was successfully destroyed." }
+    #   format.json { head :no_content }
+    # end
   end
 
   def transactions

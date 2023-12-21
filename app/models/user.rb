@@ -40,6 +40,10 @@ class User < ApplicationRecord
     save!
   end
 
+  def destroy_user!
+    self.destroy!
+  end
+
   def self.email_taken?(email)
     !!User.find_by(email: email)
   end
