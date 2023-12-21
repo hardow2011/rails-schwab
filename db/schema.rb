@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_12_031655) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_21_225121) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,6 +43,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_12_031655) do
     t.datetime "login_token_verified_at"
     t.boolean "registered", default: false
     t.string "email_change_token"
+    t.string "destroy_token"
   end
 
   add_foreign_key "transactions", "transaction_types"
