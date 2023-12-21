@@ -73,8 +73,10 @@ class UsersTest < ApplicationSystemTestCase
 
     visit get_job_link(enqueued_jobs.last)
 
-    fill_in 'user[new_email]', with: 'new@email.com'
-    fill_in 'user[new_email_confirmation]', with: 'new@email.com'
+    new_email = 'new@email.com'
+
+    fill_in 'user[new_email]', with: new_email
+    fill_in 'user[new_email_confirmation]', with: new_email
 
     perform_enqueued_jobs do
       click_on 'Change Email'
@@ -83,6 +85,8 @@ class UsersTest < ApplicationSystemTestCase
     # Without the sleep, the email change job doesn't get added in time for visit get_job_link(enqueued_jobs.last).
     # Not sure why
     sleep 0.1
+
+    assert_text "Check #{new_email} inbox to finalize email change."
 
     visit get_job_link(enqueued_jobs.last)
 

@@ -102,7 +102,7 @@ class UsersController < ApplicationController
       else
         #   TODO: send email to new email to confirm
         @current_user.update_email(new_email)
-        flash[:success] = ["Check #{new_email} inbox to finalize email change"]
+        flash[:success] = ["Check #{new_email} inbox to finalize email change."]
         redirect_to user_path
       end
     else
