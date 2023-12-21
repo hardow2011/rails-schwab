@@ -34,7 +34,6 @@ class User < ApplicationRecord
   end
 
   def confirm_email_update(new_email)
-    # TODO: do something about the session with the old email
     self.email = new_email
     self.email_change_token = nil
     save!
