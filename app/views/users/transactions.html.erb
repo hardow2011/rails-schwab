@@ -38,6 +38,8 @@
     <label class="btn btn-outline-secondary" for="range-yr_2">2 Yr</label><br>
   </div>
 </div>
-<%= content_for :head do %>
-  <%= javascript_include_tag "transactions_chart", type: "module", "data-turbo-track": "reload" %>
-<% end %>
+
+<!--TODO: this js is called when another link is clicked from te homepage. The file stays in head for some reason -->
+<%#= content_for :head do %>
+<%# end %>
+<%= javascript_include_tag "transactions_chart", type: "module" %>

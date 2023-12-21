@@ -2,6 +2,8 @@ import {Chart, registerables} from 'chart.js'
 
 Chart.register(...registerables);
 
+Turbo.session.drive = false
+
 function months_between_dates(end_date, start_date) {
     let months = end_date.getMonth() - start_date.getMonth() + 12 * (end_date.getFullYear() - start_date.getFullYear())
     if (end_date.getUTCDate() > start_date.getUTCDate()) {
@@ -56,6 +58,11 @@ function updateTransactionChart(chart, transactions, newData) {
 }
 
 function setChart(transactions) {
+    // let chartStatus = Chart.getChart("acquisitions");
+    // console.log('chartStatus', chartStatus)
+    // if (chartStatus != undefined) {
+    //     chartStatus.destroy();
+    // }
     return new Chart(
         document.getElementById('acquisitions'),
         {
@@ -117,7 +124,7 @@ let chart = null
 let transactions = null
 let filtered_dates = null
 
-document.addEventListener("turbo:load", function () {
+function fetch_chart() {
     fetch('/transactions_json')
         .then(function (response) {
             return response.json();
@@ -132,8 +139,25 @@ document.addEventListener("turbo:load", function () {
         .catch(function (error) {
             console.log(error);
         });
-});
+}
 
+document.addEventListener('DOMContentLoaded', function () {
+    fetch_chart()
+})
+document.addEventListener('turbo:visit', function () {
+    fetch_chart()
+    console.log('turbo:visit')
+})
+document.addEventListener('turbo:load', function () {
+    // fetch_chart()
+    console.log('turbo:load')
+})
+document.addEventListener('turbo:render', function () {
+    console.log('turbo:render')
+})
+
+console.log('transactions', transactions)
+console.log('chart', chart)
 
 window.updateChartRange = function updateChartRange(range) {
     updateTransactionChart(chart, transactions, filtered_dates[range])
