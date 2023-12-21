@@ -19,10 +19,13 @@ class ApplicationController < ActionController::Base
     end
 
     load_current_user!(auth_token)
-    invalid_authentication unless @current_user
+    if !@current_user or @current_user.email != payload(auth_token).first['current_email']
+      invalid_authentication
+    end
   end
 
   def invalid_authentication(redirect_path: nil)
+    byebug
     session[:auth_token] = nil
     redirect_to login_path(redirect_path: redirect_path)
   end

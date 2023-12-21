@@ -59,6 +59,7 @@ module MagicLink
     payload = {
       user_id: id,
       login_token_verified_at: login_token_verified_at,
+      current_email: self.email,
       exp: 1.day.from_now.to_i
     }
 
