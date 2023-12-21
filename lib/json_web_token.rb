@@ -8,7 +8,11 @@ class JsonWebToken
 
   def self.decode(token)
     # Set verify_expiration to true to avoid raising error on expired token
-    JWT.decode(token, Rails.application.credentials.secret_key_base, true, { verify_expiration: false })
+    if token
+      JWT.decode(token, Rails.application.credentials.secret_key_base, true, { verify_expiration: false })
+    else
+      nil
+    end
   end
 
   def self.valid_payload(payload)
