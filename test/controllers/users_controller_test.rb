@@ -1,5 +1,6 @@
 require "test_helper"
 
+# TODO: add assertions for flash messages
 class UsersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:one)
@@ -53,7 +54,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_url, message = 'Should have redirected to login page after sign up attempt'
   end
 
-  test "should show/edit user" do
+  test "should show user page" do
     get user_url
     assert_redirected_to login_url(redirect_path: '/user'), message = 'Should have redirected anonymous user to login page'
     login_as(@user)
@@ -92,14 +93,35 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
                               new_email_confirmation: new_email
                             })
 
-    assert_redirected_to user_path, 'Should have redirected to user path'
+    confirm_email_update_token = JsonWebToken.encode({
+                                               email: @user.email,
+                                               exp: 1.hour.from_now.to_i,
+                                               new_email: new_email
+                                             })
+
+    get confirm_email_update_path(email_update_token: confirm_email_update_token)
+
+    assert_includes flash[:success], "Email updated successfully."
+
+    assert_redirected_to root_path, 'Should have redirected to root path'
   end
 
   # test "should destroy user" do
-  #   assert_difference("User.count", -1) do
-  #     delete user_url(@user)
+  #   login_as(@user)
+  #
+  #   assert_emails 1 do
+  #     post request_destroy_path
   #   end
   #
-  #   assert_redirected_to users_url
+  #   assert_includes flash[:success], "Follow the instructions sent to your mailbox to delete your user."
+  #
+  #   user_destroy_token = JsonWebToken.encode({
+  #                                              email: @user.email,
+  #                                              exp: 1.hour.from_now.to_i,
+  #                                            })
+  #
+  #   @user.update_column(:destroy_token, user_destroy_token)
+  #
+  #   get process_user_destroy_request_path(user_destroy_token: user_destroy_token)
   # end
 end
