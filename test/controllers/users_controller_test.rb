@@ -78,11 +78,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get change_email_path(email_change_token: @user.email_change_token)
     assert_template 'users/change_email', 'Should have rendered to email update form'
 
-    email_change_token = JsonWebToken.encode({
-                                               email: @user.email,
-                                               exp: 1.hour.from_now.to_i
-                                             })
-
     new_email = 'don@don.com'
     email_update_token = JsonWebToken.encode({
                                                email: @user.email,
