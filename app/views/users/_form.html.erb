@@ -36,8 +36,8 @@
           <% end %>
         </li>
         <li class="list-group-item">
-          <%= form_tag request_destroy_path, id: 'destroy_user_form' do %>
-            <%= link_to 'Delete User', nil, :onclick => "document.getElementById('destroy_user_form').submit();", class: 'link-danger' %>
+          <%= form_tag request_destroy_path do %>
+            <%= submit_tag 'Delete User', class: 'border border-0 bg-transparent link-danger text-decoration-underline' %>
         <% end %>
         </li>
       </ul>
