@@ -99,7 +99,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
                                                new_email: new_email
                                              })
 
-    get confirm_email_update_path(email_update_token: confirm_email_update_token)
+    @user.update_column(:email_change_token, confirm_email_update_token)
+
+    get confirm_email_update_path(email_update_token: @user.email_change_token)
 
     assert_includes flash[:success], "Email updated successfully."
 
@@ -122,7 +124,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     @user.update_column(:destroy_token, user_destroy_token)
 
-    get process_user_destroy_request_path(user_destroy_token: user_destroy_token)
+    get process_user_destroy_request_path(user_destroy_token: @user.destroy_token)
 
     post destroy_user_path(user_destroy_token: @user.destroy_token, user: { retyped_email: @user.email })
 
