@@ -153,6 +153,7 @@ class UsersController < ApplicationController
     user_destroy_token = params[:user_destroy_token]
     decoded_token = JsonWebToken.decode(user_destroy_token)
     retyped_email = user_params[:retyped_email].strip
+    # byebug
 
     if decoded_token && User.find_by(email: decoded_token.first['email']) && User.where(destroy_token: user_destroy_token).exists? && JsonWebToken.valid_payload(decoded_token.first)
       if retyped_email != @current_user.email
@@ -161,14 +162,14 @@ class UsersController < ApplicationController
         return
       end
       if @current_user.destroy_user!
-        flash[:success] = ["User deleted successfully"]
+        flash[:success] = ["User deleted successfully."]
         session[:auth_token] = nil
         redirect_to login_path
         return
       else
-        flash[:errors] = ["An error has occurred"]
+        flash[:errors] = ["An error has occurred."]
       end
-      flash[:alert] = ['Expired or Invalid session']
+      flash[:alert] = ['Expired or Invalid session.']
     end
 
     redirect_to root_path
