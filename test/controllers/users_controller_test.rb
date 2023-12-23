@@ -106,22 +106,26 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path, 'Should have redirected to root path'
   end
 
-  # test "should destroy user" do
-  #   login_as(@user)
-  #
-  #   assert_emails 1 do
-  #     post request_destroy_path
-  #   end
-  #
-  #   assert_includes flash[:success], "Follow the instructions sent to your mailbox to delete your user."
-  #
-  #   user_destroy_token = JsonWebToken.encode({
-  #                                              email: @user.email,
-  #                                              exp: 1.hour.from_now.to_i,
-  #                                            })
-  #
-  #   @user.update_column(:destroy_token, user_destroy_token)
-  #
-  #   get process_user_destroy_request_path(user_destroy_token: user_destroy_token)
-  # end
+  test "should destroy user" do
+    login_as(@user)
+
+    assert_emails 1 do
+      post request_destroy_path
+    end
+
+    assert_includes flash[:success], "Follow the instructions sent to your mailbox to delete your user."
+
+    user_destroy_token = JsonWebToken.encode({
+                                               email: @user.email,
+                                               exp: 1.hour.from_now.to_i,
+                                             })
+
+    @user.update_column(:destroy_token, user_destroy_token)
+
+    get process_user_destroy_request_path(user_destroy_token: user_destroy_token)
+
+    post destroy_user_path(user_destroy_token: @user.destroy_token, user: { retyped_email: @user.email })
+
+    assert_includes flash[:success], "User deleted successfully."
+  end
 end
