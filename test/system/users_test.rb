@@ -96,4 +96,36 @@ class UsersTest < ApplicationSystemTestCase
     assert_text '$0'
     assert_text 'Total Value'
   end
+
+  test "should destroy User" do
+    login(@user)
+
+    visit user_url
+
+    assert_text 'You currently have 0 transactions in total.'
+
+    assert_selector 'a[href="/request_email_change"]'
+    assert_selector 'input[type="submit"][value="Upload Transactions CSV"]'
+
+    perform_enqueued_jobs do
+      click_on 'Delete User'
+    end
+
+    # Without the sleep, the email change job doesn't get added in time for visit get_job_link(enqueued_jobs.last).
+    # # Not sure why
+    sleep 0.1
+
+    assert_text 'Follow the instructions sent to your mailbox to delete your user.'
+
+    # Delete User link never gets sent. Why?
+    # Update: it does now. I didn't work before because the form was
+    # submitted through a onclick js event. Strange
+    visit get_job_link(enqueued_jobs.last)
+
+    fill_in 'user[retyped_email]', with: @user.email
+
+    click_on 'Delete User'
+
+    assert_selector 'input[value="Log In"]'
+  end
 end
