@@ -210,6 +210,11 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sentry-rails (5.15.2)
+      railties (>= 5.0)
+      sentry-ruby (~> 5.15.2)
+    sentry-ruby (5.15.2)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     sidekiq (7.2.0)
       concurrent-ruby (< 2)
       connection_pool (>= 2.3.0)
@@ -265,6 +270,8 @@ DEPENDENCIES
   rails (~> 7.1.1)
   rails-controller-testing
   selenium-webdriver
+  sentry-rails
+  sentry-ruby
   sidekiq
   sprockets-rails
   stimulus-rails
