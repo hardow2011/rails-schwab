@@ -42,3 +42,4 @@
 .idea/
 
 .byebug_history
+/config/credentials/staging.key
