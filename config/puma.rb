@@ -18,7 +18,19 @@ if ENV["RAILS_ENV"] == "production" or ENV["RAILS_ENV"] == "staging"
   workers worker_count if worker_count > 1
 end
 
-bind "unix:///var/run/myapp.sock"
+app_dir = File.expand_path("../..", __FILE__)
+shared_dir = "#{app_dir}/shared"
+
+# Set up socket location
+bind "unix://#{shared_dir}/tmp/sockets/puma.sock"
+
+# Logging
+stdout_redirect "#{shared_dir}/tmp/log/puma.stdout.log", "#{shared_dir}/tmp/log/puma.stderr.log", true
+
+# Set master PID and state locations
+# pidfile "#{shared_dir}/pids/puma.pid"
+state_path "#{shared_dir}/tmp/pids/puma.state"
+activate_control_app
 
 # Specifies the `worker_timeout` threshold that Puma will use to wait before
 # terminating a worker in development environments.
@@ -31,7 +43,14 @@ port ENV.fetch("PORT") { 3000 }
 environment ENV.fetch("RAILS_ENV") { "development" }
 
 # Specifies the `pidfile` that Puma will use.
-pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
+pidfile ENV.fetch("PIDFILE") { "#{shared_dir}/tmp/pids/server.pid" }
 
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart
+
+on_worker_boot do
+  require "active_record"
+  # ActiveRecord::Base.connection.disconnect! rescue ActiveRecord::ConnectionNotEstablished
+  # ActiveRecord::Base.establish_connection(YAML.load_file("#{app_dir}/config/database.yml")[rails_env])
+  ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
+end
