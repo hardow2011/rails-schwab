@@ -72,7 +72,7 @@ This project is a passwordless Charles Schwab Bank clone designed to showcase di
 
 1. The user accesses the account page
 2. Clicks on the "Delete User" button
-3. Clicks on the link from the email sent to preceed with the deletion
+3. Clicks on the link from the email sent to proceed with the deletion
 4. Retypes the current email to confirm the deletion
 
 ## Configuration
