@@ -5,7 +5,10 @@ This project is a passwordless Charles Schwab Bank clone designed to showcase di
 ## Table of Contents
 
 - [Installation](#installation)
-- [Testing](#tests)
+- [Tests](#tests)
+  - [Unit Testing](#unit-testing)
+  - [System Testing](#system-testing)
+  - [Integration Testing](#integration-testing)
 - [Deployment](#deployment)
 - [Usage](#usage)
 - [Configuration](#configuration)
