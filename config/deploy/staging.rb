@@ -14,9 +14,6 @@ set :keep_releases, 2
 
 set :rails_env, 'staging'
 
-set :linked_files, %w{config/staging.key}
-
-
 # role-based syntax
 # ==================
 
