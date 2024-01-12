@@ -1,6 +1,6 @@
 # Change these
 
-set :repo_url,        Rails.application.credentials.capistrano.repo_url
+set :repo_url,        'git@github.com:hardow2011/rails-schwab.git'
 set :application,     'schwab'
 
 set :rbenv_ruby,      '3.2.2'
