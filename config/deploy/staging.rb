@@ -6,7 +6,7 @@
 # server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
-server Rails.application.credentials.capistrano.staging.server_ip, port: 22, roles: [:web, :app, :db], primary: true
+server '18.117.154.120', port: 22, roles: [:web, :app, :db], primary: true
 
 set :branch, :staging
 
