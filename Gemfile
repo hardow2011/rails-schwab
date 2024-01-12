@@ -12,7 +12,7 @@ gem "sprockets-rails"
 gem "pg", "~> 1.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 4.3.9'
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
@@ -74,7 +74,7 @@ group :development do
   gem "capistrano", "~> 3.10", require: false
   gem "capistrano-rails", "~> 1.6", require: false
   gem 'capistrano-rbenv', '~> 2.2'
-  gem 'capistrano3-puma', github: "seuros/capistrano-puma"
+  gem 'capistrano3-puma'
 end
 
 group :test do

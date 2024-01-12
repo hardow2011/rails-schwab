@@ -1,12 +1,3 @@
-GIT
-  remote: https://github.com/seuros/capistrano-puma.git
-  revision: 2cc11846540489edda10d83e026c9bea04e6fab1
-  specs:
-    capistrano3-puma (6.0.0.beta.1)
-      capistrano (~> 3.7)
-      capistrano-bundler
-      puma (>= 5.1, < 7.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -110,6 +101,10 @@ GEM
     capistrano-rbenv (2.2.0)
       capistrano (~> 3.1)
       sshkit (~> 1.3)
+    capistrano3-puma (5.2.0)
+      capistrano (~> 3.7)
+      capistrano-bundler
+      puma (>= 4.0, < 6.0)
     capybara (3.39.2)
       addressable
       matrix
@@ -178,7 +173,7 @@ GEM
     psych (5.1.1.1)
       stringio
     public_suffix (5.0.3)
-    puma (5.6.7)
+    puma (4.3.12)
       nio4r (~> 2.0)
     racc (1.7.3)
     rack (2.2.8)
@@ -293,7 +288,7 @@ DEPENDENCIES
   capistrano (~> 3.10)
   capistrano-rails (~> 1.6)
   capistrano-rbenv (~> 2.2)
-  capistrano3-puma!
+  capistrano3-puma
   capybara
   cssbundling-rails
   debug
@@ -301,7 +296,7 @@ DEPENDENCIES
   jsbundling-rails
   jwt
   pg (~> 1.1)
-  puma (~> 5.0)
+  puma (~> 4.3.9)
   rack (~> 2.2, >= 2.2.8)
   rails (~> 7.1.1)
   rails-controller-testing
