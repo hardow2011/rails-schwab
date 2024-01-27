@@ -12,8 +12,7 @@ gem "sprockets-rails"
 gem "pg", "~> 1.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
-# reverted Puma version, since Puma 5 removed daemonization
-gem 'puma', '~> 4.3.9'
+gem 'puma'
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
