@@ -64,5 +64,5 @@ namespace :puma do
       execute "mkdir #{shared_path}/tmp/pids -p"
     end
   end
-  before :starting, :make_dirs
+  before deploy:starting, :make_dirs
 end
