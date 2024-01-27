@@ -15,6 +15,8 @@ set :use_sudo, true
 
 set :rails_env, 'production'
 
+set :user,       'ubuntu'
+
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 
